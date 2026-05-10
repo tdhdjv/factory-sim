@@ -1,5 +1,6 @@
 #include <iostream>
+#include "imgui.h"
 
 int main(void) {
-    std::cout << "Hello World\n" << std::endl;
+  std::cout << IMGUI_CHECKVERSION() << std::endl;
 }
