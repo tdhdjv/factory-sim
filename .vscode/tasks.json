@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Debug",
+            "type": "shell",
+            "command": "mingw32-make CONFIG=debug",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        },
+        {
+            "label": "Build Release",
+            "type": "shell",
+            "command": "mingw32-make CONFIG=release",
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "mingw32-make clean",
+        }
+    ]
+}
