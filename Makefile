@@ -12,13 +12,13 @@ ifeq ($(OS),Windows_NT)
 	PLATFORM := win32
 	SRC_FILES := $(shell powershell -Command "Get-ChildItem -Recurse -Filter *.cpp src | Resolve-Path -Relative | ForEach-Object { $$_.TrimStart('.').TrimStart('\').Replace('\', '/') }")
 	DIRECTORIES := $(shell powershell -Command "Get-ChildItem -Recurse -Directory src | Resolve-Path -Relative | ForEach-Object { $$_.Replace('\', '/') }")
-	INCLUDE_FLAGS := -Isrc/vendor -Isrc/ -Iincludes
+	INCLUDE_FLAGS := -Isrc/vendor -Isrc/vendor/backends -Isrc/ -Iincludes
 	LINKER_FLAGS := -Llib -lm -lopengl32 -lglfw3 -lgdi32 -ldwmapi
 else
 	PLATFORM := linux
 	SRC_FILES := $(shell find src -name "*.cpp")
 	DIRECTORIES := $(shell find src -type d)		# directories with .h files
-	INCLUDE_FLAGS := -Isrc/vendor -Isrc
+	INCLUDE_FLAGS := -Isrc/vendor -Isrc/vendor/backends -Isrc/ -Iincludes
 	LINKER_FLAGS := -lm -lGL -lglfw
 endif
 
