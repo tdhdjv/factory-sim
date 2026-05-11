@@ -52,12 +52,12 @@ link: link-$(PLATFORM)
 link-win32: scaffold $(OBJ_FILES)
 	@echo Linking...
 	-@copy lib\glfw3.dll $(BUILD_DIR)\$(CONFIG)\ >nul
-	$(CC) $(OBJ_FILES) -o$(BUILD_DIR)/$(CONFIG)/$(ASSEMBLY) $(LINKER_FLAGS)
+	@$(CC) $(OBJ_FILES) -o$(BUILD_DIR)/$(CONFIG)/$(ASSEMBLY) $(LINKER_FLAGS)
 
 .PHONY: link-linux
 link-linux: scaffold $(OBJ_FILES)
 	@echo Linking...
-	$(CC) $(OBJ_FILES) -o$(BUILD_DIR)/$(CONFIG)/$(ASSEMBLY) $(LINKER_FLAGS)
+	@$(CC) $(OBJ_FILES) -o$(BUILD_DIR)/$(CONFIG)/$(ASSEMBLY) $(LINKER_FLAGS)
 
 .PHONY: compile
 compile: #compile .c files
