@@ -31,9 +31,16 @@ static void glfw_error_callback(int error, const char* description)
     fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 }
 
+#include "core/logger.h"
 // Main code
 int main(int, char**)
 {
+  {
+    LongDay::Logger logger{"log.txt"};
+    logger.log(LongDay::LOG_LEVEL_INFO, "%d", 10);
+  }
+
+
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return 1;

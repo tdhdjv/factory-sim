@@ -9,10 +9,10 @@ namespace LongDay {
 
   class Logger {
   private:
-    std::ifstream file;
+    std::fstream file;
   public:
     Logger(const std::string& fileName);
     ~Logger();
-    void log(LogLevel level, const std::string& format, ...);
+    void log(LogLevel level, const char* format, ...);
   };
 }
