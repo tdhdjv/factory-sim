@@ -14,14 +14,12 @@ ifeq ($(OS),Windows_NT)
 	DIRECTORIES := $(shell powershell -Command "Get-ChildItem -Recurse -Directory src | Resolve-Path -Relative | ForEach-Object { $$_.Replace('\', '/') }")
 	INCLUDE_FLAGS := -Isrc/vendor -Isrc/ -Iincludes
 	LINKER_FLAGS := -Llib -lm -lopengl32 -lglfw3 -lgdi32 -ldwmapi
-else ifeq ($(OS),Linux)	
+else
 	PLATFORM := linux
 	SRC_FILES := $(shell find src -name "*.cpp")
 	DIRECTORIES := $(shell find src -type d)		# directories with .h files
-	INCLUDE_FLAGS := -Isrc/vendor -Isrc/
+	INCLUDE_FLAGS := -Isrc/vendor -Isrc
 	LINKER_FLAGS := -lm -lGL -lglfw
-else 
-	@echo "Unsupported platform"
 endif
 
 OBJ_FILES := $(SRC_FILES:%=$(OBJ_DIR)/$(CONFIG)/%.o)		# compiled .o objects
@@ -34,9 +32,9 @@ scaffold: scaffold-$(PLATFORM)
 .PHONY: scaffold-win32
 scaffold-win32:
 	@echo Scaffolding folder structure...
-	@powershell -Command "New-Item -ItemType Directory -Force '$(BUILD_DIR)/$(CONFIG)' | Out-Null"
-	@powershell -Command "New-Item -ItemType Directory -Force '$(OBJ_DIR)/$(CONFIG)/src' | Out-Null"
-	@powershell -Command "Get-ChildItem -Recurse -Directory src | ForEach-Object { New-Item -ItemType Directory -Force ('$(OBJ_DIR)/$(CONFIG)/' + $$_.FullName.Replace((Get-Location).Path + '\','').Replace('\','/')) | Out-Null }"
+	-@powershell -Command "New-Item -ItemType Directory -Force '$(BUILD_DIR)/$(CONFIG)' | Out-Null"
+	-@powershell -Command "New-Item -ItemType Directory -Force '$(OBJ_DIR)/$(CONFIG)/src' | Out-Null"
+	-@powershell -Command "Get-ChildItem -Recurse -Directory src | ForEach-Object { New-Item -ItemType Directory -Force ('$(OBJ_DIR)/$(CONFIG)/' + $$_.FullName.Replace((Get-Location).Path + '\','').Replace('\','/')) | Out-Null }"
 	@echo Done.
 
 .PHONY: scaffold-linux
@@ -53,7 +51,7 @@ link: link-$(PLATFORM)
 .PHONY: link-win32
 link-win32: scaffold $(OBJ_FILES)
 	@echo Linking...
-	@copy lib\glfw3.dll $(BUILD_DIR)\$(CONFIG)\ >nul
+	-@copy lib\glfw3.dll $(BUILD_DIR)\$(CONFIG)\ >nul
 	$(CC) $(OBJ_FILES) -o$(BUILD_DIR)/$(CONFIG)/$(ASSEMBLY) $(LINKER_FLAGS)
 
 .PHONY: link-linux
