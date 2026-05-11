@@ -48,7 +48,16 @@ scaffold-linux: # create build directory
 	@echo Done.
 
 .PHONY: link
-link: scaffold $(OBJ_FILES) # link
+link: link-$(PLATFORM)
+
+.PHONY: link-win32
+link-win32: scaffold $(OBJ_FILES)
+	@echo Linking...
+	@copy lib\glfw3.dll $(BUILD_DIR)\$(CONFIG)\ >nul
+	$(CC) $(OBJ_FILES) -o$(BUILD_DIR)/$(CONFIG)/$(ASSEMBLY) $(LINKER_FLAGS)
+
+.PHONY: link-linux
+link-linux: scaffold $(OBJ_FILES)
 	@echo Linking...
 	$(CC) $(OBJ_FILES) -o$(BUILD_DIR)/$(CONFIG)/$(ASSEMBLY) $(LINKER_FLAGS)
 
