@@ -31,22 +31,9 @@ static void glfw_error_callback(int error, const char* description)
     fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 }
 
-#include "backend/creator.h"
-#include "backend/temp.h"
 // Main code
 int main(int, char**)
 {
-    {
-        LongDay::I32Creator creator;
-        LongDay::Temp temp;
-        creator.set_next((LongDay::Stage<i32, std::any>*)&temp);
-        for(u32 i = 0 ; i < 20; i++) {
-            creator.update();
-            temp.print_status();
-        }
-    }
-
-
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return 1;
