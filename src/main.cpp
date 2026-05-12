@@ -35,10 +35,10 @@ static void glfw_error_callback(int error, const char* description)
 // Main code
 int main(int, char**)
 {
-  {
-    LongDay::Logger logger{"log.txt"};
-    logger.log(LongDay::LOG_LEVEL_INFO, "%d", 10);
-  }
+    {
+        LongDay::Logger logger{"log.txt"};
+        logger.log(LongDay::LOG_LEVEL_INFO, "%d", 10);
+    }
 
 
     glfwSetErrorCallback(glfw_error_callback);
