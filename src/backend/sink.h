@@ -1,12 +1,14 @@
 #pragma once
 #include "define.h"
-#include <queue>
+#include "backend/stage.h"
 
 namespace LongDay {
     //Interface
     template <class T>
-    class Sink {
+    class Sink: Stage {
     public:
-        virtual void consume(T& product) = 0;
+        //The return value tells us if it successfully consumed
+        virtual b8 can_consume() = 0;
+        virtual b8 consume(const T& product) = 0;
     };
 }

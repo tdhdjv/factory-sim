@@ -1,5 +1,9 @@
 #pragma once
 
 namespace LongDay {
-    class Stage {};
+    //Interface
+    class Stage {
+        virtual void tick() = 0;
+    };
 }
+

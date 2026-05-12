@@ -2,21 +2,26 @@
 
 #include "backend/sink.h"
 #include "backend/source.h"
+#include <queue>
 
 namespace LongDay {
     template <class In, class Out>
-    class Process : Sink<In>, Source<Out> {
-    private:  
+    class Process : public Sink<In>, public Source<Out> {
+    protected:  
         std::queue<In> queue;
         u32 capacity;
     public:
-        void set_sink(Sink<Out>* sink) {
-            this->sink = sink;
-        }
+        Process(u32 capacity):
+            capacity(capacity) {}
 
-        void consume(const In& product) {
+        b8 consume(const In& product) override {
+            if(!can_consume()) return false;
             queue.push(product);
+            return true;
         }
 
+        b8 can_consume() override {
+            return queue.size() < capacity;
+        }
     };
 }
