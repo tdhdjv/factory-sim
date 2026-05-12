@@ -3,8 +3,18 @@
 
 namespace LongDay {
     template<typename Input, typename Output>
-    Stage<Input, Output>::Stage(u32 capacity, Stage* next)
-    :capacity(capacity), next(next) {};
+    Stage<Input, Output>::Stage(u32 capacity)
+    :capacity(capacity), next(nullptr) {};
+
+    template<typename Input, typename Output>
+    Stage<Output, std::any>* Stage<Input, Output>::getNext() {
+        return next;
+    }
+
+    template<typename Input, typename Output>
+    void Stage<Input, Output>::setNext(Stage<Output, std::any>* next) {
+        this->next = next;
+    }
 
     template<typename Input, typename Output>
     u32 Stage<Input, Output>::get_capacity() const {
@@ -22,7 +32,7 @@ namespace LongDay {
     }
 
     template<typename Input, typename Output>
-    b8 Stage<Input, Output>::push_into(Input& input){
+    b8 Stage<Input, Output>::push_into(Input& input) {
         if(is_full()) return false;
         queue.push(input);
         return true;

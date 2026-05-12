@@ -15,4 +15,4 @@
 ## Directives
     CAP_WITH_UNDERSCORE
 ## Files
-    lower_case_with_underscore
+    snake_case
