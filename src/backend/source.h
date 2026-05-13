@@ -5,7 +5,7 @@
 namespace LongDay {
     //Interface
     template <class T>
-    class Source: Stage {
+    class Source {
     protected:
         Sink<T>* consumer;
         virtual b8 feed() = 0;

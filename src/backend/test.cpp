@@ -7,10 +7,6 @@ namespace LongDay {
         return true;
     };
 
-    void I32Source::tick() {
-        feed();
-    };
-
     i32 DoubleMachine::transform(const i32& input) {
         return 2 * input;
     }
@@ -23,6 +19,4 @@ namespace LongDay {
         std::cout << value <<std::endl;
         return true;
     }
-
-    void PrintI32Sink::tick() {}
 }
