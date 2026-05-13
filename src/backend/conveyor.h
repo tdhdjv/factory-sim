@@ -1,8 +1,9 @@
-#include "backend/process.h"
+#pragma once
+#include "backend/stage.h"
 
 namespace LongDay {
     template<typename T>
-    class Conveyor: public Process<T,T> {
+    class Conveyor: public Stage<T,T> {
     private:
     public:
         Conveyor(i32 capacity): Process<T,T> (capacity) {};
