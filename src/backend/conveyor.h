@@ -18,6 +18,10 @@ namespace LongDay {
             this->queue.pop();
             return true;
         }
+
+		const char* get_name() const override{
+			return "conveyor";
+		}
     };
 }
 

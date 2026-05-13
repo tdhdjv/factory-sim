@@ -11,6 +11,7 @@ namespace LongDay {
 	public:
 		virtual void connect(StageAbstract* next) = 0;
 		virtual void tick() = 0;
+		virtual const char* get_name() const = 0;
 		virtual void print_status() = 0;
     };
 
@@ -40,6 +41,9 @@ namespace LongDay {
 
         void print_status() override {
             std::queue<In> copy = queue;
+			std::cout << "(";
+			std::cout << this->get_name();
+			std::cout << ")";
             std::cout << "[";
             while (!copy.empty()) {
                 std::cout << copy.front() << ", ";
