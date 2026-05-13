@@ -31,9 +31,44 @@ static void glfw_error_callback(int error, const char* description)
     fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 }
 
+#include "backend/test.h"
+#include "backend/conveyor.h"
 // Main code
 int main(int, char**)
 {
+    {
+        LongDay::I32Source i32Source;
+        LongDay::DoubleMachine doubleMachine1(1,1);
+        LongDay::Conveyor<i32> conveyor1(3);
+        LongDay::SquareMachine doubleMachine2(2, 2);
+        LongDay::Conveyor<i32> conveyor2(2);
+        LongDay::DoubleMachine doubleMachine3(2, 1);
+        LongDay::PrintI32Sink printSink;
+        i32Source.set_consumer(&doubleMachine1);
+        doubleMachine1.set_consumer(&conveyor1);
+        conveyor1.set_consumer(&doubleMachine2);
+        doubleMachine2.set_consumer(&conveyor2);
+        conveyor2.set_consumer(&doubleMachine3);
+        doubleMachine3.set_consumer(&printSink);
+        for(u32 i = 0 ; i < 40; i++) {
+            if(i%2 ==0) {
+                i32Source.feed();
+                doubleMachine3.tick();
+                conveyor2.tick();
+                doubleMachine2.tick();
+                conveyor1.tick();
+                doubleMachine1.tick();
+            }
+            else {
+                doubleMachine1.print_status();
+                conveyor1.print_status();
+                doubleMachine2.print_status();
+                conveyor2.print_status();
+                doubleMachine3.print_status();
+                std::cout << std::endl;
+            }
+        }
+    }
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return 1;
