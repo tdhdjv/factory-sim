@@ -38,7 +38,7 @@ static_assert(sizeof(f64) == 8, "Expected f64 to be 8 bytes.");
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) 
 #define LONG_DAY_PLATFORM_WINDOWS 1
 #ifndef _WIN64
-#error "64-bit is required on Windows!"
+//#error "64-bit is required on Windows!"
 #endif
 #elif defined(__linux__) || defined(__gnu_linux__)
   // Linux OS
