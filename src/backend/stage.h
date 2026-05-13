@@ -16,7 +16,6 @@ namespace LongDay {
 
     template <class In, class Out>
 	class Stage : public Process<In, Out>, public StageBase {
-
 		void connect(StageBase* next) override {
 			Sink<Out>* sink = dynamic_cast<Sink<Out>*>(next);
 			if(!sink) {
@@ -32,10 +31,14 @@ namespace LongDay {
 	class AtomicStage: public Stage<In, Out> {
     protected:  
         std::queue<In> queue;
-        u32 capacity;
+        u64 capacity;
     public:
-        AtomicStage(u32 capacity):
+        AtomicStage(u64 capacity):
             capacity(capacity) {}
+
+
+		u64 get_size() const {return queue.size();}
+		u64 get_capacity() const {return capacity;}
 
         b8 consume(const In& product) override {
             if(!can_consume()) return false;
