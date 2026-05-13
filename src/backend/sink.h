@@ -1,6 +1,5 @@
 #pragma once
 #include "define.h"
-#include "backend/stage.h"
 
 namespace LongDay {
     //Interface

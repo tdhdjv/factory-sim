@@ -1,8 +1,9 @@
-#include "backend/process.h"
+#pragma once
+#include "backend/stage.h"
 
 namespace LongDay {
     template<typename In, typename Out>
-    class Machine: public Process<In, Out> {
+    class Machine: public Stage<In, Out> {
     private:
         u32 progress;
         u32 ticksForProduction;

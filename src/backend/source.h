@@ -1,6 +1,5 @@
 #pragma once
 #include "backend/sink.h"
-#include "backend/stage.h"
 
 namespace LongDay {
     //Interface
