@@ -3,7 +3,7 @@
 
 namespace LongDay {
     template<typename T>
-    class Conveyor: public Stage<T,T> {
+    class Conveyor: public AtomicStage<T,T> {
     private:
     public:
         Conveyor(i32 capacity): AtomicStage<T,T> (capacity) {};

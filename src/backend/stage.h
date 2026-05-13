@@ -39,6 +39,7 @@ namespace LongDay {
 
 		u64 get_size() const {return queue.size();}
 		u64 get_capacity() const {return capacity;}
+		float get_fill() const {return (float)this->get_size()/(float)this->get_capacity(); }
 
         b8 consume(const In& product) override {
             if(!can_consume()) return false;

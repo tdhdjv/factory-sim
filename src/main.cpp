@@ -34,15 +34,7 @@ static void glfw_error_callback(int error, const char* description)
 #include "backend/test.h"
 #include "backend/conveyor.h"
 #include "ui/ui.h"
-
-
-std::vector<LongDay::StageBase*> pipeline = {
-    &doubleMachine1, &conveyor1,
-    &doubleMachine2, &conveyor2,
-    &doubleMachine3
-};
-
-
+#include "backend/factory.h"
 // Main code
 int main(int, char**)
 {
