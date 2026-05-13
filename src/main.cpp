@@ -37,229 +37,345 @@ static void glfw_error_callback(int error, const char* description)
 #include "backend/factory.h"
 
 
+
+
 // Main code
-int main(int, char**)
-{
+// int main(int, char**)
+// {
     
-        LongDay::I32Source i32Source;
-        LongDay::DoubleMachine doubleMachine1(1,1);
-        LongDay::Conveyor<i32> conveyor1(3);
-        LongDay::SquareMachine doubleMachine2(2, 2);
-        LongDay::Conveyor<i32> conveyor2(2);
-        LongDay::DoubleMachine doubleMachine3(2, 1);
-        LongDay::PrintI32Sink printSink;
-        i32Source.set_consumer(&doubleMachine1);
-        doubleMachine1.set_consumer(&conveyor1);
-        conveyor1.set_consumer(&doubleMachine2);
-        doubleMachine2.set_consumer(&conveyor2);
-        conveyor2.set_consumer(&doubleMachine3);
-        doubleMachine3.set_consumer(&printSink);
+//         LongDay::I32Source i32Source;
+//         LongDay::DoubleMachine doubleMachine1(1,1);
+//         LongDay::Conveyor<i32> conveyor1(3);
+//         LongDay::SquareMachine doubleMachine2(2, 2);
+//         LongDay::Conveyor<i32> conveyor2(2);
+//         LongDay::DoubleMachine doubleMachine3(2, 1);
+//         LongDay::PrintI32Sink printSink;
 
-        std::vector<LongDay::StageBase*> pipeline = {
-            &doubleMachine1,
-            &conveyor1,
-            &doubleMachine2,
-            &conveyor2,
-            &doubleMachine3
-        };
+//         i32Source.set_consumer(&doubleMachine1);
+//         doubleMachine1.set_consumer(&conveyor1);
+//         conveyor1.set_consumer(&doubleMachine2);
+//         doubleMachine2.set_consumer(&conveyor2);
+//         conveyor2.set_consumer(&doubleMachine3);
+//         doubleMachine3.set_consumer(&printSink);
 
+//         std::vector<LongDay::StageBase*> pipeline = {
+//             &doubleMachine1,
+//             &conveyor1,
+//             &doubleMachine2,
+//             &conveyor2,
+//             &doubleMachine3
+//         };
 
-
-        for(u32 i = 0 ; i < 40; i++) {
-            if(i%2 ==0) {
-                doubleMachine3.tick();
-                conveyor2.tick();
-                doubleMachine2.tick();
-                conveyor1.tick();
-                doubleMachine1.tick();
-                i32Source.feed();
-            }
-            else {
-                doubleMachine1.print_status();
-                conveyor1.print_status();
-                doubleMachine2.print_status();
-                conveyor2.print_status();
-                doubleMachine3.print_status();
-                std::cout << std::endl;
-            }
+//         for(u32 i = 0 ; i < 40; i++) {
+//             if(i%2 ==0) {
+//                 doubleMachine3.tick();
+//                 conveyor2.tick();
+//                 doubleMachine2.tick();
+//                 conveyor1.tick();
+//                 doubleMachine1.tick();
+//                 i32Source.feed();
+//             }
+//             else {
+//                 doubleMachine1.print_status();
+//                 conveyor1.print_status();
+//                 doubleMachine2.print_status();
+//                 conveyor2.print_status();
+//                 doubleMachine3.print_status();
+//                 std::cout << std::endl;
+//             }
         
-    }
+//     }
 
 
-    glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit())
-        return 1;
+//     glfwSetErrorCallback(glfw_error_callback);
+//     if (!glfwInit())
+//         return 1;
 
-    // Decide GL+GLSL versions
-#if defined(IMGUI_IMPL_OPENGL_ES2)
-    // GL ES 2.0 + GLSL 100 (WebGL 1.0)
-    const char* glsl_version = "#version 100";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-#elif defined(IMGUI_IMPL_OPENGL_ES3)
-    // GL ES 3.0 + GLSL 300 es (WebGL 2.0)
-    const char* glsl_version = "#version 300 es";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-#elif defined(__APPLE__)
-    // GL 3.2 + GLSL 150
-    const char* glsl_version = "#version 150";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
-#else
-    // GL 3.0 + GLSL 130
-    const char* glsl_version = "#version 130";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
-#endif
+//     // Decide GL+GLSL versions
+// #if defined(IMGUI_IMPL_OPENGL_ES2)
+//     // GL ES 2.0 + GLSL 100 (WebGL 1.0)
+//     const char* glsl_version = "#version 100";
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+//     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+// #elif defined(IMGUI_IMPL_OPENGL_ES3)
+//     // GL ES 3.0 + GLSL 300 es (WebGL 2.0)
+//     const char* glsl_version = "#version 300 es";
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+//     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+// #elif defined(__APPLE__)
+//     // GL 3.2 + GLSL 150
+//     const char* glsl_version = "#version 150";
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+//     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+//     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
+// #else
+//     // GL 3.0 + GLSL 130
+//     const char* glsl_version = "#version 130";
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+//     //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+//     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
+// #endif
 
-    // Create window with graphics context
-    float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor()); // Valid on GLFW 3.3+ only
-    GLFWwindow* window = glfwCreateWindow((int)(1280 * main_scale), (int)(800 * main_scale), "Dear ImGui GLFW+OpenGL3 example", nullptr, nullptr);
-    if (window == nullptr)
-        return 1;
-    glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
+//     // Create window with graphics context
+//     float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor()); // Valid on GLFW 3.3+ only
+//     GLFWwindow* window = glfwCreateWindow((int)(1280 * main_scale), (int)(800 * main_scale), "Dear ImGui GLFW+OpenGL3 example", nullptr, nullptr);
+//     if (window == nullptr)
+//         return 1;
+//     glfwMakeContextCurrent(window);
+//     glfwSwapInterval(1); // Enable vsync
 
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+//     // Setup Dear ImGui context
+//     IMGUI_CHECKVERSION();
+//     ImGui::CreateContext();
+//     ImGuiIO& io = ImGui::GetIO(); (void)io;
+//     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+//     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
+//     // Setup Dear ImGui style
+//     ImGui::StyleColorsDark();
+//     //ImGui::StyleColorsLight();
 
-    // Setup scaling
-    ImGuiStyle& style = ImGui::GetStyle();
-    style.ScaleAllSizes(main_scale);        // Bake a fixed style scale. (until we have a solution for dynamic style scaling, changing this requires resetting Style + calling this again)
-    style.FontScaleDpi = main_scale;        // Set initial font scale. (in docking branch: using io.ConfigDpiScaleFonts=true automatically overrides this for every window depending on the current monitor)
+//     // Setup scaling
+//     ImGuiStyle& style = ImGui::GetStyle();
+//     style.ScaleAllSizes(main_scale);        // Bake a fixed style scale. (until we have a solution for dynamic style scaling, changing this requires resetting Style + calling this again)
+//     style.FontScaleDpi = main_scale;        // Set initial font scale. (in docking branch: using io.ConfigDpiScaleFonts=true automatically overrides this for every window depending on the current monitor)
 
-    // Setup Platform/Renderer backends
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-#ifdef __EMSCRIPTEN__
-    ImGui_ImplGlfw_InstallEmscriptenCallbacks(window, "#canvas");
-#endif
-    ImGui_ImplOpenGL3_Init(glsl_version);
+//     // Setup Platform/Renderer backends
+//     ImGui_ImplGlfw_InitForOpenGL(window, true);
+// #ifdef __EMSCRIPTEN__
+//     ImGui_ImplGlfw_InstallEmscriptenCallbacks(window, "#canvas");
+// #endif
+//     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    // Load Fonts
-    // - If fonts are not explicitly loaded, Dear ImGui will select an embedded font: either AddFontDefaultVector() or AddFontDefaultBitmap().
-    //   This selection is based on (style.FontSizeBase * style.FontScaleMain * style.FontScaleDpi) reaching a small threshold.
-    // - You can load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
-    // - If a file cannot be loaded, AddFont functions will return a nullptr. Please handle those errors in your code (e.g. use an assertion, display an error and quit).
-    // - Read 'docs/FONTS.md' for more instructions and details.
-    // - Use '#define IMGUI_ENABLE_FREETYPE' in your imconfig file to use FreeType for higher quality font rendering.
-    // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
-    // - Our Emscripten build process allows embedding fonts to be accessible at runtime from the "fonts/" folder. See Makefile.emscripten for details.
-    //style.FontSizeBase = 20.0f;
-    //io.Fonts->AddFontDefaultVector();
-    //io.Fonts->AddFontDefaultBitmap();
-    //io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf");
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf");
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf");
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf");
-    //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf");
-    //IM_ASSERT(font != nullptr);
+//     // Load Fonts
+//     // - If fonts are not explicitly loaded, Dear ImGui will select an embedded font: either AddFontDefaultVector() or AddFontDefaultBitmap().
+//     //   This selection is based on (style.FontSizeBase * style.FontScaleMain * style.FontScaleDpi) reaching a small threshold.
+//     // - You can load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
+//     // - If a file cannot be loaded, AddFont functions will return a nullptr. Please handle those errors in your code (e.g. use an assertion, display an error and quit).
+//     // - Read 'docs/FONTS.md' for more instructions and details.
+//     // - Use '#define IMGUI_ENABLE_FREETYPE' in your imconfig file to use FreeType for higher quality font rendering.
+//     // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
+//     // - Our Emscripten build process allows embedding fonts to be accessible at runtime from the "fonts/" folder. See Makefile.emscripten for details.
+//     //style.FontSizeBase = 20.0f;
+//     //io.Fonts->AddFontDefaultVector();
+//     //io.Fonts->AddFontDefaultBitmap();
+//     //io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf");
+//     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf");
+//     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf");
+//     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf");
+//     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf");
+//     //IM_ASSERT(font != nullptr);
 
-    // Our state
-    bool show_demo_window = true;
-    bool show_another_window = false;
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+//     // Our state
+//     bool show_demo_window = true;
+//     bool show_another_window = false;
+//     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    // Main loop
-#ifdef __EMSCRIPTEN__
-    // For an Emscripten build we are disabling file-system access, so let's not attempt to do a fopen() of the imgui.ini file.
-    // You may manually call LoadIniSettingsFromMemory() to load settings from your own storage.
-    io.IniFilename = nullptr;
-    EMSCRIPTEN_MAINLOOP_BEGIN
-#else
-    while (!glfwWindowShouldClose(window))
-#endif
-    {
-        // Poll and handle events (inputs, window resize, etc.)
-        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
-        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
-        // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-        glfwPollEvents();
-        if (glfwGetWindowAttrib(window, GLFW_ICONIFIED) != 0)
-        {
-            ImGui_ImplGlfw_Sleep(10);
-            continue;
-        }
+//     // Main loop
+// #ifdef __EMSCRIPTEN__
+//     // For an Emscripten build we are disabling file-system access, so let's not attempt to do a fopen() of the imgui.ini file.
+//     // You may manually call LoadIniSettingsFromMemory() to load settings from your own storage.
+//     io.IniFilename = nullptr;
+//     EMSCRIPTEN_MAINLOOP_BEGIN
+// #else
+//     while (!glfwWindowShouldClose(window))
+// #endif
+//     {
+//         // Poll and handle events (inputs, window resize, etc.)
+//         // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
+//         // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
+//         // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application, or clear/overwrite your copy of the keyboard data.
+//         // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
+//         glfwPollEvents();
+//         if (glfwGetWindowAttrib(window, GLFW_ICONIFIED) != 0)
+//         {
+//             ImGui_ImplGlfw_Sleep(10);
+//             continue;
+//         }
 
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+//         // Start the Dear ImGui frame
+//         ImGui_ImplOpenGL3_NewFrame();
+//         ImGui_ImplGlfw_NewFrame();
+//         ImGui::NewFrame();
 
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
+//         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
         
-            LongDay::UI::render(pipeline);
+//             LongDay::UI::render(pipeline);
 
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
-        {
-            static float f = 0.0f;
-            static int counter = 0;
+//         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
+//         {
+//             static float f = 0.0f;
+//             static int counter = 0;
 
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+//             ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
 
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
+//             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+//             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+//             ImGui::Checkbox("Another Window", &show_another_window);
 
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+//             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+//             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
+//             if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+//                 counter++;
+//             ImGui::SameLine();
+//             ImGui::Text("counter = %d", counter);
 
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-            ImGui::End();
-        }
+//             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+//             ImGui::End();
+//         }
 
-        // 3. Show another simple window.
-        if (show_another_window)
-        {
-            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
-            ImGui::End();
-        }
+//         // 3. Show another simple window.
+//         if (show_another_window)
+//         {
+//             ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+//             ImGui::Text("Hello from another window!");
+//             if (ImGui::Button("Close Me"))
+//                 show_another_window = false;
+//             ImGui::End();
+//         }
 
-        // Rendering
-        ImGui::Render();
-        int display_w, display_h;
-        glfwGetFramebufferSize(window, &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+//         // Rendering
+//         ImGui::Render();
+//         int display_w, display_h;
+//         glfwGetFramebufferSize(window, &display_w, &display_h);
+//         glViewport(0, 0, display_w, display_h);
+//         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+//         glClear(GL_COLOR_BUFFER_BIT);
+//         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        glfwSwapBuffers(window);
-    }
-#ifdef __EMSCRIPTEN__
-    EMSCRIPTEN_MAINLOOP_END;
-#endif
+//         glfwSwapBuffers(window);
+//     }
+// #ifdef __EMSCRIPTEN__
+//     EMSCRIPTEN_MAINLOOP_END;
+// #endif
 
-    // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+//     // Cleanup
+//     ImGui_ImplOpenGL3_Shutdown();
+//     ImGui_ImplGlfw_Shutdown();
+//     ImGui::DestroyContext();
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
+//     glfwDestroyWindow(window);
+//     glfwTerminate();
 
-    return 0;
-}
+//     return 0;
+// }
+
+
+
+
+// int main(int, char**)
+// {
+//     LongDay::I32Source i32Source;
+//     LongDay::DoubleMachine doubleMachine1(1, 1);
+//     LongDay::Conveyor<i32> conveyor1(3);
+//     LongDay::SquareMachine doubleMachine2(2, 2);
+//     LongDay::Conveyor<i32> conveyor2(2);
+//     LongDay::DoubleMachine doubleMachine3(2, 1);
+//     LongDay::PrintI32Sink printSink;
+
+//     i32Source.set_consumer(&doubleMachine1);
+//     doubleMachine1.set_consumer(&conveyor1);
+//     conveyor1.set_consumer(&doubleMachine2);
+//     doubleMachine2.set_consumer(&conveyor2);
+//     conveyor2.set_consumer(&doubleMachine3);
+//     doubleMachine3.set_consumer(&printSink);
+
+//     std::vector<LongDay::AtomicStage<int, int>*> pipeline = {
+//         &doubleMachine1,
+//         &conveyor1,
+//         &doubleMachine2,
+//         &conveyor2,
+//         &doubleMachine3
+//     };
+
+//     glfwSetErrorCallback(glfw_error_callback);
+//     if (!glfwInit())
+//         return 1;
+
+// #if defined(IMGUI_IMPL_OPENGL_ES2)
+//     const char* glsl_version = "#version 100";
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+//     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+// #elif defined(IMGUI_IMPL_OPENGL_ES3)
+//     const char* glsl_version = "#version 300 es";
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+//     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+// #elif defined(__APPLE__)
+//     const char* glsl_version = "#version 150";
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+//     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+//     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+// #else
+//     const char* glsl_version = "#version 130";
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+// #endif
+
+//     float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor());
+//     GLFWwindow* window = glfwCreateWindow((int)(1280 * main_scale), (int)(800 * main_scale), "Factory Sim", nullptr, nullptr);
+//     if (window == nullptr)
+//         return 1;
+//     glfwMakeContextCurrent(window);
+//     glfwSwapInterval(1);
+
+//     IMGUI_CHECKVERSION();
+//     ImGui::CreateContext();
+//     ImGuiIO& io = ImGui::GetIO(); (void)io;
+//     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+//     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+
+//     ImGui::StyleColorsDark();
+
+//     ImGuiStyle& style = ImGui::GetStyle();
+//     style.ScaleAllSizes(main_scale);
+//     style.FontScaleDpi = main_scale;
+
+//     ImGui_ImplGlfw_InitForOpenGL(window, true);
+//     ImGui_ImplOpenGL3_Init(glsl_version);
+
+//     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+//     while (!glfwWindowShouldClose(window))
+//     {
+//         glfwPollEvents();
+//         if (glfwGetWindowAttrib(window, GLFW_ICONIFIED) != 0)
+//         {
+//             ImGui_ImplGlfw_Sleep(10);
+//             continue;
+//         }
+
+//         ImGui_ImplOpenGL3_NewFrame();
+//         ImGui_ImplGlfw_NewFrame();
+//         ImGui::NewFrame();
+
+//         LongDay::UI::render(pipeline);
+
+//         ImGui::Render();
+//         int display_w, display_h;
+//         glfwGetFramebufferSize(window, &display_w, &display_h);
+//         glViewport(0, 0, display_w, display_h);
+//         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+//         glClear(GL_COLOR_BUFFER_BIT);
+//         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+//         glfwSwapBuffers(window);
+//     }
+
+//     // Cleanup
+//     ImGui_ImplOpenGL3_Shutdown();
+//     ImGui_ImplGlfw_Shutdown();
+//     ImGui::DestroyContext();
+//     glfwDestroyWindow(window);
+//     glfwTerminate();
+
+//     return 0;
+//}
+
