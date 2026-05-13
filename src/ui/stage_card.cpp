@@ -14,7 +14,9 @@ namespace LongDay {
             ? ImVec4(0.9f, 0.2f, 0.2f, 1.f) // when it is full -> becomes red
             : ImVec4(0.3f, 0.75f, 0.4f, 1.f); //when it is normal -> it is green
 
-         ImGui::PushStyleColor(imGuiCol_PlotHistogram, color);
+
+         
+         ImGui::PushStyleColor(ImGuiCol_PlotHistogram, color);
          char label[32];
          snprintf(label, sizeof(label), "%u/%u", AtomicStage->get_size(), AtomicStage->get_capacity());
          ImGui::ProgressBar(fill, ImVec2(110, 0), label);
