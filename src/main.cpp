@@ -35,10 +35,12 @@ static void glfw_error_callback(int error, const char* description)
 #include "backend/conveyor.h"
 #include "ui/ui.h"
 #include "backend/factory.h"
+
+
 // Main code
 int main(int, char**)
 {
-    {
+    
         LongDay::I32Source i32Source;
         LongDay::DoubleMachine doubleMachine1(1,1);
         LongDay::Conveyor<i32> conveyor1(3);
@@ -52,6 +54,17 @@ int main(int, char**)
         doubleMachine2.set_consumer(&conveyor2);
         conveyor2.set_consumer(&doubleMachine3);
         doubleMachine3.set_consumer(&printSink);
+
+        std::vector<LongDay::StageBase*> pipeline = {
+            &doubleMachine1,
+            &conveyor1,
+            &doubleMachine2,
+            &conveyor2,
+            &doubleMachine3
+        };
+
+
+
         for(u32 i = 0 ; i < 40; i++) {
             if(i%2 ==0) {
                 doubleMachine3.tick();
@@ -69,8 +82,10 @@ int main(int, char**)
                 doubleMachine3.print_status();
                 std::cout << std::endl;
             }
-        }
+        
     }
+
+
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return 1;
@@ -187,7 +202,7 @@ int main(int, char**)
         ImGui::NewFrame();
 
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window)
+        
             LongDay::UI::render(pipeline);
 
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
