@@ -4,9 +4,9 @@
 
 namespace LongDay{
 	template<class In, class Out>
-	class Factory: Stage<In, Out> {
+	class Factory: Process<In, Out> {
 	private:
-		std::vector<StageAbstract*> stages;
+		std::vector<StageBase*> stages;
 	public:
 		void set_consumer(Sink<Out>* consumer) override{
 			Stage<std::any, Out>* back = dynamic_cast<Stage<std::any, Out>*>(stages.back());
@@ -18,19 +18,19 @@ namespace LongDay{
 			this->consumer = back->consumer;
 		}
 
-		void append(StageAbstract* stage) {
-			StageAbstract* back = stages.back();
+		void append(StageBase* stage) {
+			StageBase* back = stages.back();
 			back->connect(stage);
 			stages.push_back(stage);
 		}
 
-		void insert(u64 index, StageAbstract* stage) {
+		void insert(u64 index, StageBase* stage) {
 			if(index > 0) {
-				StageAbstract* previous = stages[index-1];
+				StageBase* previous = stages[index-1];
 				previous->connect(stage);
 			}
 			if(index < stages.size()) {
-				StageAbstract* next = stages[index];
+				StageBase* next = stages[index];
 				stage->connect(next);
 			}
 			stages.insert(stages.begin() + index, stage);
@@ -43,3 +43,4 @@ namespace LongDay{
 		}
 	};
 }
+

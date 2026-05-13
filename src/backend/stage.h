@@ -5,29 +5,37 @@
 #include <queue>
 
 namespace LongDay {
-    //Interface
-    class StageAbstract {
-		StageAbstract* next;
+    class StageBase {
+		StageBase* next;
 	public:
-		virtual void connect(StageAbstract* next) = 0;
+		virtual void connect(StageBase* next) = 0;
 		virtual void tick() = 0;
 		virtual const char* get_name() const = 0;
 		virtual void print_status() = 0;
     };
 
     template <class In, class Out>
-	class Stage: public Process<In, Out>, public StageAbstract {
+	class Stage : public Process<In, Out>, public StageBase {
+
+		void connect(StageBase* next) override {
+			Sink<Out>* sink = dynamic_cast<Sink<Out>*>(next);
+			if(!sink) {
+				//TODO: Error for wrong type of connect
+				return;
+			}
+			this->set_consumer(sink);
+		}
+	};
+
+	//An AtomicStage is a Stage that isn't composed out of other stages
+    template <class In, class Out>
+	class AtomicStage: public Stage<In, Out> {
     protected:  
         std::queue<In> queue;
         u32 capacity;
     public:
-        Stage(u32 capacity):
+        AtomicStage(u32 capacity):
             capacity(capacity) {}
-
-		void connect(StageAbstract* next) override {
-			Sink<Out>* sink = next;
-			this->set_consumer(sink);
-		}
 
         b8 consume(const In& product) override {
             if(!can_consume()) return false;

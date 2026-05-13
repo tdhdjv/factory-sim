@@ -3,14 +3,14 @@
 
 namespace LongDay {
     template<typename In, typename Out>
-    class Machine: public Stage<In, Out> {
+    class Machine: public AtomicStage<In, Out> {
     private:
         u32 progress;
         u32 ticksForProduction;
     protected:
         virtual Out transform(const In& input) = 0;
     public:
-        Machine(u32 capacity, u32 ticksForProduction): Process<In, Out>(capacity), progress(0), ticksForProduction(ticksForProduction) {};
+        Machine(u32 capacity, u32 ticksForProduction): Stage<In, Out>(capacity), progress(0), ticksForProduction(ticksForProduction) {};
 
         void tick() override {
             if(this->queue.empty()) return; 
