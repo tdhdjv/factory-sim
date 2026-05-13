@@ -1,10 +1,5 @@
 # Tab spaces
-<<<<<<< HEAD
-  2
-
-=======
-    4?
->>>>>>> 04135967e385b93ab07afae0d56dd4246f2d0b74
+    4
 # Naming Conventions
 
 ## Variables
@@ -21,3 +16,8 @@
     CAP_WITH_UNDERSCORE
 ## Files
     snake_case
+
+# Type Rules
+
+- Use the types defined in "defines.h" (Only exception (char) for Characters only!!! (if you need a 8 bit number, use u8 or i8))
+- Use u64 for size_t (We only support 64-bit computers)

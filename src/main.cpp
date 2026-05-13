@@ -62,12 +62,12 @@ int main(int, char**)
         doubleMachine3.set_consumer(&printSink);
         for(u32 i = 0 ; i < 40; i++) {
             if(i%2 ==0) {
-                i32Source.feed();
                 doubleMachine3.tick();
                 conveyor2.tick();
                 doubleMachine2.tick();
                 conveyor1.tick();
                 doubleMachine1.tick();
+                i32Source.feed();
             }
             else {
                 doubleMachine1.print_status();

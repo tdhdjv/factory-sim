@@ -14,6 +14,9 @@ namespace LongDay {
     i32 SquareMachine::transform(const i32& input) {
         return input * input;
     }
+    const char* DoubleMachine::get_name() const { 
+		return "double machine";
+	}
 
     b8 PrintI32Sink::can_consume() {
         return true;

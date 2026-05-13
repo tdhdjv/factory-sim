@@ -1,4 +1,5 @@
 #pragma once
+
 #include "backend/machine.h"
 #include "define.h"
 
@@ -16,7 +17,9 @@ namespace LongDay {
 
     class DoubleMachine: public Machine<i32, i32> {
     public:
-        i32 transform(const i32& input) override; 
+
+        i32 transform(const i32& input) override;
+		const char* get_name() const override;
         DoubleMachine(i32 capacity, i32 ticksToProduce): Machine(capacity, ticksToProduce) {}
     };
 

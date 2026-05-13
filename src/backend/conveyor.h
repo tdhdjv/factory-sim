@@ -6,7 +6,7 @@ namespace LongDay {
     class Conveyor: public Stage<T,T> {
     private:
     public:
-        Conveyor(i32 capacity): Process<T,T> (capacity) {};
+        Conveyor(i32 capacity): AtomicStage<T,T> (capacity) {};
         void tick() override {
             if(this->queue.empty()) return; 
             if(!this->consumer->can_consume()) return;
@@ -18,6 +18,10 @@ namespace LongDay {
             this->queue.pop();
             return true;
         }
+
+		const char* get_name() const override{
+			return "conveyor";
+		}
     };
 }
 
