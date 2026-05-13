@@ -5,7 +5,6 @@
 
 namespace LongDay {
    namespace UI {
-      void render (const std::vector<StageBase*>& stages);
+      void render(const std::vector<AtomicStage<int, int>*>& stages);
    }
-
 }
