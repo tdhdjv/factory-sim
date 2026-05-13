@@ -1,5 +1,5 @@
 # Tab spaces
-  2 or 4?
+  2
 
 # Naming Conventions
 
