@@ -36,7 +36,7 @@ static void glfw_error_callback(int error, const char* description)
 #include "ui/ui.h"
 
 
-std::vector<LongDay::StageAbstract*> pipeline = {
+std::vector<LongDay::StageBase*> pipeline = {
     &doubleMachine1, &conveyor1,
     &doubleMachine2, &conveyor2,
     &doubleMachine3

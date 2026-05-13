@@ -3,6 +3,6 @@
 
 namespace LongDay {
    namespace StageCard {
-      void draw(StageAbstract* stage, int id);
+      void draw(StageBase* AtomicStage, int id);
    }
 }
