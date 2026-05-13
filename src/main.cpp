@@ -33,10 +33,12 @@ static void glfw_error_callback(int error, const char* description)
 
 #include "backend/test.h"
 #include "backend/conveyor.h"
+#include "backend/factory.h"
 // Main code
 int main(int, char**)
 {
     {
+		LongDay::Factory factory;
         LongDay::I32Source i32Source;
         LongDay::DoubleMachine doubleMachine1(1,1);
         LongDay::Conveyor<i32> conveyor1(3);
