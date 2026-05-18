@@ -7,8 +7,8 @@ namespace LongDay {
     class Source {
     protected:
         Sink<T>* consumer;
-        virtual b8 feed() = 0;
     public:
+        virtual b8 feed() = 0;
         void set_consumer(Sink<T>* consumer) {
             this->consumer = consumer;
         }

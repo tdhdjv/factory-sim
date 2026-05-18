@@ -11,7 +11,7 @@ namespace LongDay {
     private:
         std::fstream file;
     public:
-        Logger(const std::string& fileName);
+        explicit Logger(const std::string& fileName);
         ~Logger();
         void log(LogLevel level, const char* format, ...);
     };

@@ -6,7 +6,7 @@ namespace LongDay {
     class Conveyor: public AtomicStage<T,T> {
     private:
     public:
-        Conveyor(i32 capacity): AtomicStage<T,T> (capacity) {};
+        explicit Conveyor(i32 capacity): AtomicStage<T,T> (capacity) {};
         void tick() override {
             if(this->queue.empty()) return; 
             if(!this->consumer->can_consume()) return;
@@ -14,6 +14,8 @@ namespace LongDay {
         }
 
         b8 feed() override {
+			if(this->queue.empty())
+				return false;
             this->consumer->consume(this->queue.front());
             this->queue.pop();
             return true;

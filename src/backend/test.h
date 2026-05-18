@@ -1,9 +1,17 @@
 #pragma once
 
 #include "backend/machine.h"
+#include "backend/factory.h"
 #include "define.h"
 
 namespace LongDay {
+
+	class LongDayFactory: public Factory<i32, i32> {
+	public:
+		LongDayFactory();
+		const char* get_name() const override;
+	};
+
     class I32Source: public Source<i32> {
     public:
         b8 feed() override;
@@ -12,7 +20,8 @@ namespace LongDay {
     class SquareMachine: public Machine <i32, i32> {
     public:
         i32 transform(const i32& input) override; 
-        SquareMachine(i32 capacity, i32 ticksToProduce): Machine(capacity, ticksToProduce) {}
+		const char* get_name() const override;
+        explicit SquareMachine(i32 capacity, i32 ticksToProduce): Machine(capacity, ticksToProduce) {}
     };
 
     class DoubleMachine: public Machine<i32, i32> {
@@ -20,7 +29,7 @@ namespace LongDay {
 
         i32 transform(const i32& input) override;
 		const char* get_name() const override;
-        DoubleMachine(i32 capacity, i32 ticksToProduce): Machine(capacity, ticksToProduce) {}
+        explicit DoubleMachine(i32 capacity, i32 ticksToProduce): Machine(capacity, ticksToProduce) {}
     };
 
     class PrintI32Sink: public Sink<i32> {

@@ -8,6 +8,7 @@ namespace LongDay {
     class StageBase {
 		StageBase* next;
 	public:
+		virtual ~StageBase() = default; 
 		virtual void connect(StageBase* next) = 0;
 		virtual void tick() = 0;
 		virtual const char* get_name() const = 0;
@@ -33,7 +34,7 @@ namespace LongDay {
         std::queue<In> queue;
         u64 capacity;
     public:
-        AtomicStage(u64 capacity):
+        explicit AtomicStage(u64 capacity):
             capacity(capacity) {}
 
 
@@ -53,15 +54,12 @@ namespace LongDay {
 
         void print_status() override {
             std::queue<In> copy = queue;
-			std::cout << "(";
-			std::cout << this->get_name();
-			std::cout << ")";
-            std::cout << "[";
+			std::cout << "(" << this->get_name() << ") [";
             while (!copy.empty()) {
                 std::cout << copy.front() << ", ";
                 copy.pop();
             }
-            std::cout << "] -> ";
+            std::cout << "]";
         }
 	};
 }

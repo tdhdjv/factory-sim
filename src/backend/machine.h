@@ -10,7 +10,7 @@ namespace LongDay {
     protected:
         virtual Out transform(const In& input) = 0;
     public:
-        Machine(u32 capacity, u32 ticksForProduction): AtomicStage<In, Out>(capacity), progress(0), ticksForProduction(ticksForProduction) {};
+        explicit Machine(u32 capacity, u32 ticksForProduction): AtomicStage<In, Out>(capacity), progress(0), ticksForProduction(ticksForProduction) {};
 
         void tick() override {
             if(this->queue.empty()) return; 
@@ -22,10 +22,11 @@ namespace LongDay {
         }
 
         b8 feed() override {
+			if(this->queue.empty())
+				return false;
             this->consumer->consume(transform(this->queue.front()));
-            this->queue.pop();
+			this->queue.pop();
             return true;
         }
     };
 }
-
