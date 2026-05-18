@@ -19,17 +19,23 @@ int main(int, char**) {
 	}
 
 	//vector for the UI
-	std::vector<LongDay::AtomicStage<int, int>*> pipeline;
-	for (const auto& s: longDayFactory.get_stages()) {
-		auto* ptr = dynamic_cast<LongDay::AtomicStage<int, int>*>(s.get());
-		if (ptr) pipeline.push_back(ptr);
-	}
 
+	std::vector<LongDay::StageBase*> baseStages;
+   std::vector<LongDay::AtomicStage<int,int>*> atomicStages;
+
+   for (const auto& s : longDayFactory.get_stages()) {
+      LongDay::StageBase* base = s.get();
+      auto* atomic = dynamic_cast<LongDay::AtomicStage<int,int>*>(base);
+      if (atomic) {
+         baseStages.push_back(base);    // keeps real type → correct get_name()
+         atomicStages.push_back(atomic); // for get_fill(), get_size()
+      }
+   }
 
 	while(window.is_running()) {
 		window.update();
 		//UI Here!
-		LongDay::UI::render(pipeline);
+		LongDay::UI::render(baseStages, atomicStages);
 		//
 		window.render();
 	}
