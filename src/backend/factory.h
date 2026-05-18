@@ -1,11 +1,7 @@
 #pragma once
 #include "backend/stage.h"
-<<<<<<< HEAD
 #include <memory>
-=======
-#include <any>
 
->>>>>>> 1c5b1fc (smth)
 namespace LongDay{
 	template<class In, class Out>
 	class Factory: public Stage<In, Out> {
