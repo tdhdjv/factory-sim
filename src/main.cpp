@@ -1,6 +1,9 @@
 #include "backend/test.h"
 #include "core/window.h"
 
+#include "ui/ui.h"
+
+
 int main(int, char**) {
 
 	LongDay::Window window(1200, 800, "Long Day Factory Simulation");
@@ -14,9 +17,20 @@ int main(int, char**) {
 		longDayFactory.consume(10);
 		longDayFactory.print_status();
 	}
+
+	//vector for the UI
+	std::vector<LongDay::AtomicStage<int, int>*> pipeline;
+	for (const auto& s: longDayFactory.get_stages()) {
+		auto* ptr = dynamic_cast<LongDay::AtomicStage<int, int>*>(s.get());
+		if (ptr) pipeline.push_back(ptr);
+	}
+
+
 	while(window.is_running()) {
 		window.update();
 		//UI Here!
+		LongDay::UI::render(pipeline);
+		//
 		window.render();
 	}
 }

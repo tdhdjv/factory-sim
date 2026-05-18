@@ -80,5 +80,9 @@ namespace LongDay{
 			std::cout << "]";
 			std::cout << std::endl;
 		}
+
+		const std::vector<std::unique_ptr<StageBase>>& get_stages() const {
+			return stages;
+		}
 	};
 }
