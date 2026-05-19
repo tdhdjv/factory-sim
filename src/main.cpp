@@ -18,8 +18,7 @@ int main(int, char**) {
 		longDayFactory.print_status();
 	}
 
-	//vector for the UI
-
+	//vectors for the UI
 	std::vector<LongDay::StageBase*> baseStages;
    std::vector<LongDay::AtomicStage<int,int>*> atomicStages;
 
