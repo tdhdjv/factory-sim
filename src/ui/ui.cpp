@@ -9,12 +9,12 @@ namespace LongDay {
 namespace UI {
 
 // ── Shared state ──────────────────────────────────────────────────
-static int  s_tick       = 0;
-static bool s_running    = false;
+static int  s_tick       = 0; //counts how many ticks happened in total
+static bool s_running    = false; //by default paused, when pressing Start is becomes true
 static float s_speed     = 1.0f;   // ticks per second
-static float s_timer     = 0.0f;
-static int  s_finished   = 0;
-static int  s_inProgress = 0;
+static float s_timer     = 0.0f; // counts time from the start of the process to the end
+static int  s_finished   = 0; //counts finished products
+static int  s_inProgress = 0; // counts products that are in process
 static int  s_selectedIdx = -1;    // which machine card is selected
 
 struct LogEntry {

@@ -26,7 +26,7 @@ int main(int, char**) {
       LongDay::StageBase* base = s.get();
       auto* atomic = dynamic_cast<LongDay::AtomicStage<int,int>*>(base);
       if (atomic) {
-         baseStages.push_back(base);    // keeps real type → correct get_name()
+         baseStages.push_back(base);    // get_name
          atomicStages.push_back(atomic); // for get_fill(), get_size()
       }
    }
