@@ -19,7 +19,7 @@ static int  s_selectedIdx = -1;    // which machine card is selected
 
 struct LogEntry {
     int  tick;
-    std::string msg;
+    std::string msg; // message
     ImVec4 color;
 };
 static std::deque<LogEntry> s_log;
@@ -30,35 +30,40 @@ static void push_log(const char* msg, ImVec4 color) {
 }
 
 // ── Colors ────────────────────────────────────────────────────────
-static ImVec4 COL_GREEN  = { 0.18f, 0.80f, 0.44f, 1.f };
+static ImVec4 COL_GREEN  = { 0.18f, 0.80f, 0.44f, 1.f }; // ImVec4 holds 4 colors, and instead of writing numbers each time 
+                                                         //we use a convenient way by making variables that store particular colors
 static ImVec4 COL_AMBER  = { 0.95f, 0.61f, 0.07f, 1.f };
 static ImVec4 COL_RED    = { 0.91f, 0.30f, 0.24f, 1.f };
-static ImVec4 COL_BLUE   = { 0.20f, 0.60f, 0.86f, 1.f };
+static ImVec4 COL_BLUE   = { 0.20f, 0.60f, 0.86f, 1.f }; 
 static ImVec4 COL_DIM    = { 0.47f, 0.51f, 0.58f, 1.f };
 
+//makes ticks, takes const ref to atomic stages cuz we don't modify or make copies of stages, so it should be const
 static void do_tick(const std::vector<AtomicStage<int,int>*>& stages) {
-    s_tick++;
+    s_tick++; // incrments global tick counter
     for (int i = (int)stages.size()-1; i >= 0; i--)
-        stages[i]->tick();
+        stages[i]->tick(); // ticks are in reverse order because we need to be able to wait until the item is pushed to 
+                          //the next stage before pushing the current item to the machine
 
     // count items across all stages
     s_inProgress = 0;
     for (auto* s : stages)
-        s_inProgress += (int)s->get_size();
+        s_inProgress += (int)s->get_size();//recounts the products in progress
 
-    push_log("tick completed", COL_DIM);
+    push_log("tick completed", COL_DIM); //adds a dim-colored entry saying the tick happened
 }
 
 // ── Top bar ───────────────────────────────────────────────────────
-static void draw_topbar(const std::vector<AtomicStage<int,int>*>& stages) {
-    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.11f,0.13f,0.17f,1.f));
-    ImGui::BeginChild("topbar", ImVec2(0, 48), false);
+static void draw_topbar(const std::vector<AtomicStage<int,int>*>& stages) { //draws the top bar, name , tick, speed, buttons
+    ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.11f,0.13f,0.17f,1.f)); //sets the color for next child window
+     // applies the color until the PopStyleColor() is called
+
+    ImGui::BeginChild("topbar", ImVec2(0, 48), false);// starts the topbar in the ChildWindow
 
     ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 8);
     ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10);
 
-    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.10f,0.74f,0.61f,1.f));
-    ImGui::Text("factory_sim");
+    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.10f,0.74f,0.61f,1.f));//color for the "LongDays Factory"
+    ImGui::Text("Long Days Factory");
     ImGui::PopStyleColor();
 
     ImGui::SameLine(0, 16);
@@ -68,13 +73,14 @@ static void draw_topbar(const std::vector<AtomicStage<int,int>*>& stages) {
             s_running = true;
             push_log("simulation started", COL_GREEN);
         }
-    } else {
+    } 
+    else {
         if (ImGui::SmallButton("  Pause  ")) {
             s_running = false;
             push_log("simulation paused", COL_AMBER);
         }
     }
-    ImGui::SameLine(0, 6);
+    ImGui::SameLine(0, 6); //tells the ImGui to place the next widget next to the previous one
     if (ImGui::SmallButton("  Tick  ")) {
         do_tick(stages);
     }
@@ -84,34 +90,35 @@ static void draw_topbar(const std::vector<AtomicStage<int,int>*>& stages) {
         s_finished = 0; s_inProgress = 0; s_selectedIdx = -1;
         s_log.clear();
         push_log("reset", COL_AMBER);
-    }
+    }//all the ui vlaues are resetted back to the intital stage
 
     ImGui::SameLine(0, 20);
     ImGui::Text("speed");
     ImGui::SameLine(0, 6);
-    ImGui::SetNextItemWidth(80);
-    ImGui::SliderFloat("##spd", &s_speed, 0.2f, 5.0f, "%.1fx");
+    ImGui::SetNextItemWidth(100);
+    ImGui::SliderFloat("##spd", &s_speed, 0.2f, 5.0f, "%.1fx"); // a sliderbar is drawn with width 100px
 
     // tick counter on the right
-    ImGui::SameLine(ImGui::GetContentRegionAvail().x - 80);
+    ImGui::SameLine(ImGui::GetContentRegionAvail().x - 100); // regulates the space size for the "tick"
     ImGui::TextColored(COL_DIM, "tick ");
     ImGui::SameLine(0,2);
     ImGui::TextColored(ImVec4(0.10f,0.74f,0.61f,1.f), "%03d", s_tick);
 
-    ImGui::EndChild();
+    ImGui::EndChild(); //Child window is ended and the topbar is made
     ImGui::PopStyleColor();
 }
 
 // ── Stats row ─────────────────────────────────────────────────────
 static void draw_stats() {
-    float w = ImGui::GetContentRegionAvail().x / 4.f - 2.f;
+    float w = ImGui::GetContentRegionAvail().x / 4.f - 2.f;//calculates the width of each stat card (Finished, InProgress, etc)
 
+    //this is a lambda function, it allows to use one function for all 4 stat cards instead of writing 4 functions
     auto stat_card = [&](const char* label, int val, ImVec4 col) {
         ImGui::BeginGroup();
-        ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.11f,0.13f,0.17f,1.f));
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.11f,0.13f,0.17f,1.f));//starting a child window for the stat card
         ImGui::BeginChild(label, ImVec2(w, 54), false);
         ImGui::SetCursorPosY(6); ImGui::SetCursorPosX(8);
-        ImGui::TextColored(COL_DIM, "%s", label);
+        ImGui::TextColored(COL_DIM, "%s", label);//the stat card name
         ImGui::SetCursorPosX(8);
         ImGui::TextColored(col, "%d", val);
         ImGui::EndChild();
@@ -120,6 +127,7 @@ static void draw_stats() {
         ImGui::SameLine(0, 2);
     };
 
+    //we are creating the stat cards passing the card's info to the stat_card lambda function
     stat_card("FINISHED",    s_finished,   COL_GREEN);
     stat_card("IN PROGRESS", s_inProgress, COL_BLUE);
     stat_card("BREAKDOWNS",  0,            COL_AMBER);
