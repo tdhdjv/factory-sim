@@ -2,8 +2,6 @@
 #include "backend/factory.h"
 #include "ui/ui_state.h"
 
-#include "ui/conveyor_list.h"
-#include "ui/machine_list.h"
 #include "ui/stats_row.h"
 #include "ui/topbar.h"
 #include "ui/inspector.h"
