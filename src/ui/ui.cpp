@@ -1,5 +1,5 @@
 #include "ui/ui.h"
-#include "ui/pipeline_view.h"
+#include "ui/factory_view.h"
 #include "imgui.h"
 #include <vector>
 #include <string>

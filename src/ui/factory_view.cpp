@@ -1,4 +1,4 @@
-#include "ui/pipeline_view.h"
+#include "ui/factory_view.h"
 #include "ui/stage_card.h"
 #include "imgui.h"
 
