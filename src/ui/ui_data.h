@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <define.h>
 
 namespace UI {
 
@@ -38,13 +39,13 @@ namespace UI {
       u64 itemCount;
       u64 capacity;
       float fillPercent;
-   }
+   };
 
    // Machine layout, we will draw boxes
    struct MachineLayout {
       std::string machineId;
       float x, y, w, h; //this will regulate the size of the boxes
-   }
+   };
 
    // Log entry
    enum class LogStatus { INFO, WARN, DNAGER, OK };
@@ -53,7 +54,7 @@ namespace UI {
       u32 tick;
       std::string message;
       LogStatus status;
-   }
+   };
 
    // Stats [FINISHED] [IN PROGRESS] [BREAKDOWNS] [LOST]
    struct FactoryStats{
@@ -61,8 +62,8 @@ namespace UI {
       u32 inProgress = 0;
       u32 breakDowns = 0;
       u32 lost = 0;
-   }
+   };
 
 
 
-}
+};

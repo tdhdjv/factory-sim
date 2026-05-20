@@ -1,20 +1,3 @@
-#include "ui/ui.h"
-#include "backend/factory.h"
-#include "ui/ui_state.h"
-
-#include "ui/stats_row.h"
-#include "ui/topbar.h"
-#include "ui/inspector.h"
-
-
-void LongDayFactoryUI::draw(LongDayFactory& factory, LongDayFactoryState& state){
-    TopbarPanel::draw(factory, state);
-    PipelinePanel::draw(factory, state);
-    StatsRow::draw(factory);
-    LogPanel::draw();
-
-};
-
 
 
 
