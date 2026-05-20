@@ -34,7 +34,7 @@ int main(int, char**) {
 	while(window.is_running()) {
 		window.update();
 		//UI Here!
-		LongDay::UI::render(baseStages, atomicStages);
+		
 		//
 		window.render();
 	}
