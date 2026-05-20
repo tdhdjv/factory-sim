@@ -102,7 +102,7 @@ static void draw_topbar(const std::vector<AtomicStage<int,int>*>& stages) { //dr
     ImGui::SameLine(ImGui::GetContentRegionAvail().x - 100); // regulates the space size for the "tick"
     ImGui::TextColored(COL_DIM, "tick ");
     ImGui::SameLine(0,2);
-    ImGui::TextColored(ImVec4(0.10f,0.74f,0.61f,1.f), "%03d", s_tick);
+    ImGui::TextColored(ImVec4(0.10f,0.74f,0.61f,1.f), "%03d", s_tick); // 000 -> 001, 002, 003
 
     ImGui::EndChild(); //Child window is ended and the topbar is made
     ImGui::PopStyleColor();
@@ -137,39 +137,34 @@ static void draw_stats() {
 
 // ── Machine cards ─────────────────────────────────────────────────
 static void draw_machines(
-    const std::vector<StageBase*>& base,
-    const std::vector<AtomicStage<int,int>*>& atomic)
+    const std::vector<StageBase*>& base, // for names
+    const std::vector<AtomicStage<int,int>*>& atomic) // to fill the data of the machines
 {
-    ImGui::TextColored(COL_DIM, "MACHINES");
-    ImGui::Spacing();
+    ImGui::TextColored(COL_DIM, "MACHINES"); // adds the "Machines" text to the top after the stat cards
+    
 
+      // this loop loops through all stages and outputs the data of the machines
     for (int i = 0; i < (int)atomic.size(); i++) {
         // only show machines (not conveyors) — skip conveyors by name
         const char* name = base[i]->get_name();
-        if (std::string(name).find("conveyor") != std::string::npos) continue;
+        if (std::string(name).find("conveyor") != std::string::npos) continue; 
 
         float fill     = atomic[i]->get_fill();
         bool  selected = (s_selectedIdx == i);
         bool  working  = fill > 0.f;
 
-        ImGui::PushID(i);
+        ImGui::PushID(i); // uses a stack to store ids, each machine information details is given an ID scope, 
+                         //so that they will not conflict with each other
 
         // card background highlight if selected
         if (selected)
-            ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.13f,0.16f,0.22f,1.f));
+            ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.13f,0.16f,0.22f,1.f));// selected cards get a slightly lighter background
         else
             ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.11f,0.13f,0.17f,1.f));
 
         ImGui::BeginChild("mc", ImVec2(0, 70), false);
 
-        // left colored border for selected
-        if (selected) {
-            ImVec2 p = ImGui::GetWindowPos();
-            ImGui::GetWindowDrawList()->AddRectFilled(
-                p, ImVec2(p.x+3, p.y+70),
-                IM_COL32(26,188,156,255));
-        }
-
+       
         ImGui::SetCursorPos(ImVec2(10, 8));
 
         // name + state pill on same line
@@ -178,7 +173,7 @@ static void draw_machines(
         if (working)
             ImGui::TextColored(COL_GREEN, "[WORKING]");
         else
-            ImGui::TextColored(COL_DIM,   "[IDLE]");
+            ImGui::TextColored(COL_DIM,   "[NOT WORKING/EMPTY]");
 
         // queue fill bar
         ImGui::SetCursorPosX(10);
@@ -197,8 +192,8 @@ static void draw_machines(
 
         // click to select
         ImGui::SetCursorPos(ImVec2(0,0));
-        ImGui::InvisibleButton("##sel", ImVec2(-1,-1));
-        if (ImGui::IsItemClicked()) s_selectedIdx = i;
+        ImGui::InvisibleButton("##sel", ImVec2(-1,-1)); // when the machine is clicked, it will slightly change the color
+        if (ImGui::IsItemClicked()) s_selectedIdx = i; 
 
         ImGui::EndChild();
         ImGui::PopStyleColor();
