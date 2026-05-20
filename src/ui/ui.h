@@ -1,13 +1,9 @@
 #pragma once
-#include "imgui.h"
-#include "backend/stage.h"
-#include <vector>
+class LongDayFactory;
+struct LongDayFactoryState;
 
-namespace LongDay {
-   namespace UI {
-      void render(
-         const std::vector<StageBase*>& baseStages,
-         const std::vector<AtomicStage<int,int>*>& atomicStages
-         );
-   }
-}
+class LongDayFactoryUI{
+   public:
+      static void draw(LongDayFactory& factory, LongDayFactoryState& state);
+};
+
