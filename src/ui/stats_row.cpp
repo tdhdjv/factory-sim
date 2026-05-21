@@ -29,7 +29,7 @@ static void draw_card(
 
 void draw(const UI::FactoryStats& stats){
 
-   ImGui::Begin("Factory Statistics");
+   
    draw_card("FINISHED", stats.finished, UI::Colors::WORKING);
    ImGui::SameLine();
    draw_card("IN PROGRESS", stats.inProgress, UI::Colors::PRODUCT_DOT);
@@ -38,7 +38,7 @@ void draw(const UI::FactoryStats& stats){
    ImGui::SameLine();
    draw_card("LOST", stats.lost, UI::Colors::LOG_WARN);
 
-   ImGui::End();
+   
 }
 
 }

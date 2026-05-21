@@ -1,17 +1,19 @@
 #pragma once
+#include "ui/ui_data.h"
+#include "ui/ui_state.h"
+#include <vector>
 
-class LongDayFactory;
-struct LongDayFactoryState;
+namespace FactoryUI {
 
-class LongDayFactoryUI{
-   public:
-      static void draw(
-         LongDayFactory& factory,
-         LongDayFactoryState& state
-      );
-};
+   void draw(
+      LongDayFactoryState&                        state,
+      const std::vector<UI::MachineDisplayData>&  machines,
+      const std::vector<UI::ConveyorDisplayData>& conveyors,
+      const UI::FactoryStats&                     stats,
+      const std::vector<UI::LogEntry>&            logs
+   );
 
-
+}
 
 
 

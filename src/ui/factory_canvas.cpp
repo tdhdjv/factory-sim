@@ -38,9 +38,11 @@ static void draw_machine(
 
 void draw(
    const std::vector<UI::MachineDisplayData>& machines,
-   int& selectedMachine
+   const std::vector<UI::ConveyorDisplayData>& conveyors,
+   int& selectedMachine,
+   ImVec2 size
 ){
-   ImGui::Begin("Factory Pipeline");
+   ImGui::BeginChild("Factory Pipeline", size, true);
 
    for(size_t i = 0; i < machines.size(); ++i){
 
@@ -66,7 +68,7 @@ void draw(
       }
    }
 
-   ImGui::End();
+   ImGui::EndChild();
 }
 
 }

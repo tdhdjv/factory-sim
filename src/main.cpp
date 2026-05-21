@@ -19,22 +19,16 @@ int main(int, char**) {
 	}
 
 	//vectors for the UI
-	std::vector<LongDay::StageBase*> baseStages;
-   std::vector<LongDay::AtomicStage<int,int>*> atomicStages;
-
-   for (const auto& s : longDayFactory.get_stages()) {
-      LongDay::StageBase* base = s.get();
-      auto* atomic = dynamic_cast<LongDay::AtomicStage<int,int>*>(base);
-      if (atomic) {
-         baseStages.push_back(base);    // get_name
-         atomicStages.push_back(atomic); // for get_fill(), get_size()
-      }
-   }
+	LongDayFactoryState state;
+	std::vector<UI::MachineDisplayData>  machines;
+   std::vector<UI::ConveyorDisplayData> conveyors;
+   UI::FactoryStats                     stats;
+   std::vector<UI::LogEntry>            logs;
 
 	while(window.is_running()) {
 		window.update();
 		//UI Here!
-		
+		FactoryUI::draw(state, machines, conveyors, stats, logs);
 		//
 		window.render();
 	}

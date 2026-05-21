@@ -27,14 +27,15 @@ static const char* state_to_string(UI::MachineState state){
 
 void draw(
    const std::vector<UI::MachineDisplayData>& machines,
-   int selectedMachine)
+   int selectedMachine,
+   ImVec2 size)
 {
-   ImGui::Begin("Inspector");
+   ImGui::BeginChild("Inspector", size, true);
 
    if(selectedMachine < 0 || selectedMachine >= (int)machines.size()){
 
       ImGui::Text("No machine selected.");
-      ImGui::End();
+      ImGui::EndChild();
       return;
    }
 
@@ -54,7 +55,7 @@ void draw(
 
    ImGui::ProgressBar(machine.progress, ImVec2(-1, 20));
 
-   ImGui::End();
+   ImGui::EndChild();
 }
 
 }
