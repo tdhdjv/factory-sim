@@ -3,10 +3,8 @@
 #include "ui/ui_data.h"
 
 namespace Inspector {
-
-void draw(
-   const std::vector<UI::MachineDisplayData>& machines,
-   int selectedMachine
-);
-
+   void draw(
+      const std::vector<UI::MachineDisplayData>& machines,
+      int selectedMachine
+   );
 }

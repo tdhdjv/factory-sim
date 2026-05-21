@@ -2,6 +2,6 @@
 
 namespace Topbar {
 
-void draw();
+   void draw();
 
 }

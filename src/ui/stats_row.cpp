@@ -9,7 +9,8 @@ static void draw_card(
    const char* label,
    u32 value,
    ImVec4 valueColor
-){
+)
+{
    ImGui::PushStyleColor(ImGuiCol_ChildBg, UI::Colors::BG_PRIMARY);
    ImGui::BeginChild(label, ImVec2(170, 90), true);
    ImGui::TextUnformatted(label);

@@ -29,6 +29,4 @@ namespace UI::Colors {
     constexpr ImVec4 BG_PRIMARY   = { 0.09f, 0.11f, 0.14f, 1.f };
     constexpr ImVec4 BG_SECONDARY = { 0.11f, 0.13f, 0.17f, 1.f };
 
-
-
 }

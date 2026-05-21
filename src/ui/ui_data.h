@@ -48,7 +48,7 @@ namespace UI {
    };
 
    // Log entry
-   enum class LogStatus { INFO, WARN, DNAGER, OK };
+   enum class LogStatus { INFO, WARN, DANGER, OK };
 
    struct LogEntry{
       u32 tick;

@@ -15,7 +15,7 @@ static ImVec4 color_for_status(UI::LogStatus status){
       case UI::LogStatus::WARN:
          return UI::Colors::LOG_WARN;
 
-      case UI::LogStatus::DNAGER:
+      case UI::LogStatus::DANGER:
          return UI::Colors::BROKEN;
 
       case UI::LogStatus::OK:
