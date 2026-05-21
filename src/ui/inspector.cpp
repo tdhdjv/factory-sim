@@ -55,7 +55,6 @@ void draw(
 
    ImGui::ProgressBar(machine.progress, ImVec2(-1, 20));
 
-   ImGui::EndChild();
+   ImGui::End();
 }
-
 }

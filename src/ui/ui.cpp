@@ -7,14 +7,14 @@
 #include "ui/log_panel.h"
 #include <imgui.h>
 
-// Fake data, the real data will be included during integration
+// Temporary data, the real data will be included during integration
 namespace {
 
    std::vector<UI::MachineDisplayData> makeMockMachines() {
       return {
-         { "m1", "Cutter",    UI::MachineState::WORKING,     92.f, 0.60f, 3, 5, 17, 3 },
-         { "m2", "Assembler", UI::MachineState::IDLE,        100.f, 0.00f, 0, 5, 12, 5 },
-         { "m3", "Painter",   UI::MachineState::BROKEN,      20.f, 0.00f, 1, 5, 8,  4 },
+         { "m1", "Double Machine 01",    UI::MachineState::WORKING,     92.f, 0.60f, 3, 5, 17, 3 },
+         { "m2", "Double Machine 02", UI::MachineState::IDLE,        100.f, 0.00f, 0, 5, 12, 5 },
+         { "m3", "Double Machine 03",   UI::MachineState::BROKEN,      20.f, 0.00f, 1, 5, 8,  4 },
       };
    }
 
@@ -31,16 +31,13 @@ namespace {
 
    std::vector<UI::LogEntry> makeMockLogs() {
       return {
-         { 125, "Painter-01 BROKEN!",           UI::LogStatus::DANGER },
-         { 122, "Assembler started processing", UI::LogStatus::INFO   },
-         { 120, "Cutter finished Iron Plate",   UI::LogStatus::OK     },
+         { 125, "Double MAchine 01 BROKEN!",           UI::LogStatus::DANGER },
+         { 122, "Double MAchine 02 started processing", UI::LogStatus::INFO   },
+         { 120, "Double Machine 03 finished LongDay",   UI::LogStatus::OK     },
       };
    }
 
 } 
-
-
-
 
 
 // ── Entry point 
@@ -53,7 +50,7 @@ void draw(
    const UI::FactoryStats&                     stats,
    const std::vector<UI::LogEntry>&            logs
 ){
-   // Use mock data when real data is empty
+   // USing temporary data
    const auto& m  = machines.empty()  ? makeMockMachines()   : machines;
    const auto& c  = conveyors.empty() ? makeMockConveyors()  : conveyors;
    const auto& s  = machines.empty()  ? makeMockStats()      : stats;

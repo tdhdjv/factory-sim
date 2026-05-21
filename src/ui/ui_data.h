@@ -13,7 +13,7 @@ namespace UI {
       MAINTENANCE
    };
 
-   // [Machine] -> Painter
+   // [Machine] 
    // [State] -> WORKING
    // [Health] -> 100%
    // [Progress] -> 25%
@@ -63,7 +63,4 @@ namespace UI {
       u32 breakDowns = 0;
       u32 lost = 0;
    };
-
-
-
 };

@@ -61,9 +61,7 @@ void draw(
 
       if(i < machines.size() - 1){
          ImGui::SameLine();
-
          ImGui::Text("->");
-
          ImGui::SameLine();
       }
    }
