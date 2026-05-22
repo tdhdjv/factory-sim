@@ -7,6 +7,5 @@ namespace Inspector {
    void draw(
       const std::vector<UI::MachineDisplayData>& machines,
       int selectedMachine,
-      ImVec2 size
-   );
+      ImVec2 size);
 }

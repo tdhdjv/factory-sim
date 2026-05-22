@@ -3,6 +3,5 @@
 
 namespace Topbar {
    void draw(LongDayFactoryState& state);  
-
 }
 

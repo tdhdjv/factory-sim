@@ -7,7 +7,6 @@ namespace FactoryCanvas {
    void draw(
       const std::vector<UI::MachineDisplayData>&  machines,
       const std::vector<UI::ConveyorDisplayData>& conveyors,
-      int&    selectedMachine,
-      ImVec2  size
+      int& selectedMachine, ImVec2 size
    );
 }

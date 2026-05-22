@@ -12,6 +12,8 @@ void draw(LongDayFactoryState& state) {
    ImGui::SameLine();
    ImGui::SetNextItemWidth(150.f);
    ImGui::SliderFloat("Speed", &state.simulationSpeed, 0.1f, 5.0f, "%.1fx");
+   ImGui::SameLine(1700.0f, 0.0f);
+   ImGui::Button("Ticks");
 }
 
 } 
