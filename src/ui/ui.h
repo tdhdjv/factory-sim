@@ -6,11 +6,11 @@
 namespace FactoryUI {
 
    void draw(
-      LongDayFactoryState&                        state,
-      const std::vector<UI::MachineDisplayData>&  machines,
+      LongDayFactoryState& state,
+      const std::vector<UI::MachineDisplayData>& machines,
       const std::vector<UI::ConveyorDisplayData>& conveyors,
-      const UI::FactoryStats&                     stats,
-      const std::vector<UI::LogEntry>&            logs
+      const UI::FactoryStats& stats,
+      const std::vector<UI::LogEntry>& logs
    );
 
 }

@@ -20,10 +20,7 @@ namespace Inspector {
       return "UNKNOWN";
    }
 
-   void draw(
-      const std::vector<UI::MachineDisplayData>& machines,
-      int selectedMachine,
-      ImVec2 size)
+   void draw( const std::vector<UI::MachineDisplayData>& machines, int selectedMachine, ImVec2 size)
    {
       ImGui::BeginChild("Inspector", {400, 300}, true);
       if(selectedMachine < 0 || selectedMachine >= (int)machines.size()){
@@ -32,7 +29,7 @@ namespace Inspector {
          return;
       }
 
-      const auto& machine = machines[selectedMachine]; 
+      const auto& machine = machines[selectedMachine];  // temporary data not real 
 
       ImGui::Text("Machine: %s", machine.label.c_str());
       ImGui::Separator();

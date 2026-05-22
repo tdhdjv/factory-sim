@@ -12,9 +12,9 @@ namespace {
    
    std::vector<UI::MachineDisplayData> makeMockMachines() {
       return {
-         { "m1", "Double Machine 01",    UI::MachineState::WORKING,     92.f, 0.60f, 3, 5, 17, 3 },
+         { "m1", "Double Machine 01", UI::MachineState::WORKING,     92.f, 0.60f, 3, 5, 17, 3 },
          { "m2", "Double Machine 02", UI::MachineState::IDLE,        100.f, 0.00f, 0, 5, 12, 5 },
-         { "m3", "Double Machine 03",   UI::MachineState::BROKEN,      20.f, 0.00f, 1, 5, 8,  4 },
+         { "m3", "Double Machine 03", UI::MachineState::BROKEN,      20.f, 0.00f, 1, 5, 8,  4 },
       };
    }
 
@@ -55,9 +55,7 @@ namespace FactoryUI {
       const auto& s  = machines.empty()  ? makeMockStats()      : stats;
       const auto& lg = logs.empty()      ? makeMockLogs()       : logs;
 
-      // ── One fullscreen host window ─────────────────────────────────
-      // This is NOT a visible window — it's just a container so all
-      // panels are anchored to the screen instead of floating freely.
+      // a window container, contains everything within one frame
       ImGuiIO& io = ImGui::GetIO();
       ImGui::SetNextWindowPos({ 0, 0 });
       ImGui::SetNextWindowSize(io.DisplaySize);

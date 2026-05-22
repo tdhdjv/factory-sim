@@ -10,5 +10,4 @@ struct LongDayFactoryState {
    int selectedStage = -1;
 
    float simulationSpeed = 1.0f;
-
 };

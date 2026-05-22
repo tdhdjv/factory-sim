@@ -4,11 +4,11 @@
 namespace UI::Colors {
 
    // Text / neutral
-    constexpr ImVec4 DIM       = { 0.47f, 0.51f, 0.58f, 1.f };
+    constexpr ImVec4 DIM       = { 0.47f, 0.51f, 0.58f, 1.f }; 
     constexpr ImVec4 PRIMARY   = { 0.88f, 0.87f, 0.84f, 1.f };
 
     // Machine states  
-    constexpr ImVec4 WORKING     = { 0.24f, 0.43f, 0.07f, 1.f }; // #3B6D11
+    constexpr ImVec4 WORKING     = { 0.24f, 0.43f, 0.07f, 1.f }; // #3e7312
     constexpr ImVec4 BROKEN      = { 0.64f, 0.18f, 0.18f, 1.f }; // #A32D2D
     constexpr ImVec4 MAINTENANCE = { 0.52f, 0.31f, 0.04f, 1.f }; // #854F0B
     constexpr ImVec4 IDLE        = { 0.47f, 0.51f, 0.58f, 1.f }; // same as DIM
