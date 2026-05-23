@@ -5,8 +5,7 @@
 
 namespace UI {
 
-   // Machine state
-   enum class MachineState {
+   enum struct MachineState {
       IDLE,
       WORKING,
       BROKEN,
@@ -22,8 +21,8 @@ namespace UI {
    // [Process Time] -> 4 ticks
    struct MachineDisplayData {
       std::string id;    
-      std::string label;  // will show the name -> Machine
-      MachineState state;  // will show IDLE, WORKING etc.
+      std::string label;  
+      MachineState state; 
       float health;  
       float progress;
       u64 queueSize;
@@ -32,7 +31,7 @@ namespace UI {
       u32 processTimeTicks;  
    };
 
-   //Conveyor state     [machine] -> conveyor-> [machine]
+   
    struct ConveyorDisplayData {
       std::string id;
       std::string label; 
@@ -41,14 +40,12 @@ namespace UI {
       float fillPercent;
    };
 
-   // Machine layout, we will draw boxes
-   struct MachineLayout {
-      std::string machineId;
-      float x, y, w, h; //this will regulate the size of the boxes
+   enum struct LogStatus {
+      INFO,
+      WARN,
+      DANGER,
+      OK 
    };
-
-   // Log entry
-   enum class LogStatus { INFO, WARN, DANGER, OK };
 
    struct LogEntry{
       u32 tick;

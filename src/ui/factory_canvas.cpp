@@ -4,7 +4,6 @@
 #include <imgui.h>
 
 namespace FactoryCanvas {
-
    static void draw_machine(const UI::MachineDisplayData& machine, bool selected){
       
       if(selected){
@@ -24,7 +23,7 @@ namespace FactoryCanvas {
       const std::vector<UI::MachineDisplayData>& machines,
       const std::vector<UI::ConveyorDisplayData>& conveyors,
       int& selectedMachine,
-      ImVec2 size ) 
+      ImVec2 size )
    {
       ImGui::BeginChild("Factory Pipeline", size, true);
 

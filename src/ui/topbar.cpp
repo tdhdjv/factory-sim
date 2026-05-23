@@ -17,7 +17,8 @@ namespace Topbar {
       };
       ImGui::SameLine();
       ImGui::SetNextItemWidth(150.f);
-      ImGui::SliderFloat("Speed", &state.simulationSpeed, 0.1f, 5.0f, "%.1fx");
+      state.simulationSpeed = 1;
+      ImGui::SliderInt("Speed", &state.simulationSpeed, 1, 5, "%dx");
       ImGui::SameLine(1700.0f, 0.0f);
       ImGui::Button("Ticks");
    }

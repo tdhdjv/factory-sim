@@ -4,9 +4,8 @@
 #include <imgui.h>
 
 namespace Inspector {
-
+   
    static const char* state_to_string(UI::MachineState state){
-
       switch(state){
          case UI::MachineState::IDLE:
             return "IDLE";
@@ -29,11 +28,28 @@ namespace Inspector {
          return;
       }
 
-      const auto& machine = machines[selectedMachine];  // temporary data not real 
+      const auto& machine = machines[selectedMachine];  // temporary data not real, backend data will be used during integration 
+      
+      ImVec4 stateColors;
+      switch(machine.state){
+         case UI::MachineState::BROKEN:
+            stateColors = UI::Colors::BROKEN;
+            break;
+         case UI::MachineState::WORKING:
+            stateColors = UI::Colors::WORKING;
+            break;
+         case UI::MachineState::IDLE:
+            stateColors = UI::Colors::IDLE;
+            break;
+      };
 
       ImGui::Text("Machine: %s", machine.label.c_str());
       ImGui::Separator();
-      ImGui::Text("State: %s", state_to_string(machine.state));
+
+      ImGui::Text("State:");
+      ImGui::SameLine();
+      ImGui::TextColored(stateColors, "%s", state_to_string(machine.state));
+
       ImGui::Text("Health: %.0f%%", machine.health);
       ImGui::Text("Progress:");
       ImGui::SameLine();
@@ -41,6 +57,10 @@ namespace Inspector {
       ImGui::Text("Queue: %llu/%llu", machine.queueSize, machine.queueCapacity);
       ImGui::Text("Output: %llu", machine.outputCount);
       ImGui::Text("Process Time: %u ticks", machine.processTimeTicks);
+      ImGui::Spacing();
+      ImGui::Button("Force Break");
+      ImGui::SameLine();
+      ImGui::Button("Instant Repair");
 
       ImGui::EndChild();
    }

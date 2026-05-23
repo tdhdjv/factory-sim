@@ -25,8 +25,7 @@ namespace UI::Colors {
     // Product dot on conveyor
     constexpr ImVec4 PRODUCT_DOT = { 0.22f, 0.53f, 0.87f, 1.f }; // #378ADD
 
-    // Backgrounds (ImGui child windows)
+    // Background for ImGui child window
     constexpr ImVec4 BG_PRIMARY   = { 0.09f, 0.11f, 0.14f, 1.f };
-    constexpr ImVec4 BG_SECONDARY = { 0.11f, 0.13f, 0.17f, 1.f };
 
 }

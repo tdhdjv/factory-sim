@@ -34,11 +34,12 @@ namespace {
          { 125, "Double MAchine 01 BROKEN!",           UI::LogStatus::DANGER },
          { 122, "Double MAchine 02 started processing", UI::LogStatus::INFO   },
          { 120, "Double Machine 03 finished LongDay",   UI::LogStatus::OK     },
+         { 110, "Double Machine 01 Working!", UI::LogStatus::INFO },
+         { 105, "Double Machine 02 started processing", UI::LogStatus::OK},
       };
    }
 
 } 
-
 
 namespace FactoryUI {
 
