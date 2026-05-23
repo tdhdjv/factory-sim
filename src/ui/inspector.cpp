@@ -24,7 +24,7 @@ namespace Inspector {
    {
       ImGui::BeginChild("Inspector", {400, 300}, true);
       if(selectedMachine < 0 || selectedMachine >= (int)machines.size()){
-         ImGui::Text("No machine selected.");
+         ImGui::Text("Inspector Window :)\n No machine selected.");
          ImGui::EndChild();
          return;
       }
@@ -35,12 +35,12 @@ namespace Inspector {
       ImGui::Separator();
       ImGui::Text("State: %s", state_to_string(machine.state));
       ImGui::Text("Health: %.0f%%", machine.health);
+      ImGui::Text("Progress:");
+      ImGui::SameLine();
+      ImGui::ProgressBar(machine.progress, ImVec2(-1, 20));
       ImGui::Text("Queue: %llu/%llu", machine.queueSize, machine.queueCapacity);
       ImGui::Text("Output: %llu", machine.outputCount);
       ImGui::Text("Process Time: %u ticks", machine.processTimeTicks);
-
-      ImGui::Spacing();
-      ImGui::ProgressBar(machine.progress, ImVec2(-1, 20));
 
       ImGui::EndChild();
    }

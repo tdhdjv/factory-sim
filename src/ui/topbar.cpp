@@ -4,11 +4,17 @@
 namespace Topbar {
 
    void draw(LongDayFactoryState& state) {
-      ImGui::Button("Start");
+      if(ImGui::Button("Start")){
+         state.requestStart = true;
+      };
       ImGui::SameLine();
-      ImGui::Button("Pause");
+      if(ImGui::Button("Pause")){
+         state.paused = true;
+      };
       ImGui::SameLine();
-      ImGui::Button("Reset");
+      if(ImGui::Button("Reset")){
+         state.requestReset = true;
+      };
       ImGui::SameLine();
       ImGui::SetNextItemWidth(150.f);
       ImGui::SliderFloat("Speed", &state.simulationSpeed, 0.1f, 5.0f, "%.1fx");

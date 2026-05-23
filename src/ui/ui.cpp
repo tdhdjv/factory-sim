@@ -71,9 +71,6 @@ namespace FactoryUI {
       StatsRow::draw(s);
       ImGui::Spacing();
 
-      float inspW   = 220.f;
-      float panelH  = 300.f;
-      float canvasW = ImGui::GetContentRegionAvail().x - inspW - ImGui::GetStyle().ItemSpacing.x;
 
       FactoryCanvas::draw(m, c, state.selectedStage, {1355, 300 });
       ImGui::SameLine();

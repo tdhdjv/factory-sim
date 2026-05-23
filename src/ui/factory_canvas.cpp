@@ -11,13 +11,13 @@ namespace FactoryCanvas {
          ImGui::PushStyleColor( ImGuiCol_Button, UI::Colors::PRODUCT_DOT);
       }
 
-      ImGui::Button(machine.label.c_str(), ImVec2(180, 100));
+      ImGui::Button(machine.label.c_str(), ImVec2(200, 100));
       if(selected){
          ImGui::PopStyleColor();
       }
 
       ImGui::Text("Queue: %llu/%llu", machine.queueSize, machine.queueCapacity);
-      ImGui::ProgressBar( machine.progress, ImVec2(180, 20));
+      ImGui::ProgressBar( machine.progress, ImVec2(200, 20));
    }
 
    void draw(
@@ -29,7 +29,7 @@ namespace FactoryCanvas {
       ImGui::BeginChild("Factory Pipeline", size, true);
 
       ImGui::BeginGroup();
-      ImGui::Text("Raw material");
+      ImGui::Text("Dreams\nHopes");
       ImGui::EndGroup();
       ImGui::SameLine();
       ImGui::Text("->");
@@ -55,7 +55,7 @@ namespace FactoryCanvas {
       ImGui::Text("->");
       ImGui::SameLine();
       ImGui::BeginGroup();
-      ImGui::Text("Output");
+      ImGui::Text("Long\nHappy Days");
       ImGui::EndGroup();
       ImGui::SameLine();
 
