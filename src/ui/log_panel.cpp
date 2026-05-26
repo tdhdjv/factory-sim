@@ -21,6 +21,8 @@ namespace LogPanel {
       return UI::Colors::PRIMARY;
    }
 
+   
+
    void draw(const std::vector<UI::LogEntry>& logs, ImVec2 size){
       ImGui::BeginChild("Factory Log Enties", ImVec2(0,0), true);
       

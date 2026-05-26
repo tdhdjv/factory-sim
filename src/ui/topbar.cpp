@@ -1,5 +1,6 @@
 #include "ui/topbar.h"
 #include <imgui.h>
+#include<iostream>
 
 namespace Topbar {
 
@@ -20,7 +21,10 @@ namespace Topbar {
       state.simulationSpeed = 1;
       ImGui::SliderInt("Speed", &state.simulationSpeed, 1, 5, "%dx");
       ImGui::SameLine(1700.0f, 0.0f);
-      if (ImGui::Button("Ticks")){
+
+      std::string ticksCounter = "Ticks " + std::to_string(state.tick);
+
+      if (ImGui::Button(ticksCounter.c_str())){
          state.requestTick = true;
          state.tick +=1;
       };
