@@ -20,7 +20,10 @@ namespace Topbar {
       state.simulationSpeed = 1;
       ImGui::SliderInt("Speed", &state.simulationSpeed, 1, 5, "%dx");
       ImGui::SameLine(1700.0f, 0.0f);
-      ImGui::Button("Ticks");
+      if (ImGui::Button("Ticks")){
+         state.requestTick = true;
+         state.tick +=1;
+      };
    }
 
 } 
