@@ -27,7 +27,6 @@ namespace Topbar {
       if (ImGui::Button(ticksCounter.c_str())){
          state.requestTick = true;
          state.tick +=1;
-      };
-   }
-
+      }
+   };
 } 
