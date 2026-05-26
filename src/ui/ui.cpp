@@ -9,7 +9,6 @@
 
 // Temporary data, the real data will be included during integration
 namespace {
-   
    std::vector<UI::MachineDisplayData> makeMockMachines() {
       return {
          { "m1", "Double Machine 01", UI::MachineState::WORKING,     92.f, 0.60f, 3, 5, 17, 3 },
@@ -38,8 +37,9 @@ namespace {
          { 105, "Double Machine 02 started processing", UI::LogStatus::OK},
       };
    }
-
 } 
+
+
 
 namespace FactoryUI {
 
@@ -66,19 +66,22 @@ namespace FactoryUI {
          ImGuiWindowFlags_NoBringToFrontOnFocus
       );
 
-      Topbar::draw(state);
+      
+      Topbar topbar(state);
+      StatsRow statsrow(s);
+      FactoryCanvas factorycanvas(m, c, state.selectedStage, {1355, 300} );
+      Inspector inspector(m, state.selectedStage, {320, 300});
+      LogPanel logpanel(lg, {-1.f, 130.f});
+
+      topbar.draw();
       ImGui::Spacing();
-
-      StatsRow::draw(s);
+      statsrow.draw();
       ImGui::Spacing();
-
-
-      FactoryCanvas::draw(m, c, state.selectedStage, {1355, 300 });
-      ImGui::SameLine();
-      Inspector::draw(m, state.selectedStage, { 320, 300 });
-
+      factorycanvas.draw();
       ImGui::Spacing();
-      LogPanel::draw(lg, { -1.f, 130.f });
+      inspector.draw();
+      ImGui::Spacing();
+      logpanel.draw();
 
       ImGui::End();
    }

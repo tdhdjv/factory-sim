@@ -3,14 +3,8 @@
 
 namespace LongDay {
    class UI_view {
-      private:
-      UI_controller* controller;
       public:
+      virtual ~UI_view() = default;
       virtual void draw() = 0;
    };
-
-   class UI_controller {
-      public:
-      virtual void update() = 0;
-   }
 };

@@ -4,8 +4,6 @@
 
 #include <imgui.h>
 
-namespace Inspector {
-   
    static const char* state_to_string(UI::MachineState state){
       switch(state){
          case UI::MachineState::IDLE:
@@ -20,16 +18,16 @@ namespace Inspector {
       return "UNKNOWN";
    }
 
-   void draw( const std::vector<UI::MachineDisplayData>& machines, int selectedMachine, ImVec2 size)
-   {
+
+   void Inspector::draw(){
       ImGui::BeginChild("Inspector", {400, 300}, true);
-      if(selectedMachine < 0 || selectedMachine >= (int)machines.size()){
+      if(u_selectedMachine < 0 || u_selectedMachine >= (int)u_machines.size()){
          ImGui::Text("Inspector Window :)\n No machine selected.");
          ImGui::EndChild();
          return;
       }
 
-      const auto& machine = machines[selectedMachine];  // temporary data not real, backend data will be used during integration 
+      const auto& machine = u_machines[u_selectedMachine];  // temporary data not real, backend data will be used during integration 
       
       ImVec4 stateColors;
       switch(machine.state){
@@ -65,4 +63,3 @@ namespace Inspector {
 
       ImGui::EndChild();
    }
-}

@@ -2,31 +2,30 @@
 #include <imgui.h>
 #include<iostream>
 
-namespace Topbar {
+void Topbar::draw(){
 
-   void draw(LongDayFactoryState& state) {
       if(ImGui::Button("Start")){
-         state.requestStart = true;
+         u_state.requestStart = true;
       };
       ImGui::SameLine();
       if(ImGui::Button("Pause")){
-         state.paused = true;
+         u_state.paused = true;
       };
       ImGui::SameLine();
       if(ImGui::Button("Reset")){
-         state.requestReset = true;
+         u_state.requestReset = true;
       };
       ImGui::SameLine();
       ImGui::SetNextItemWidth(150.f);
-      state.simulationSpeed = 1;
-      ImGui::SliderInt("Speed", &state.simulationSpeed, 1, 5, "%dx");
+      u_state.simulationSpeed = 1;
+      ImGui::SliderInt("Speed", &u_state.simulationSpeed, 1, 5, "%dx");
       ImGui::SameLine(1700.0f, 0.0f);
 
-      std::string ticksCounter = "Ticks " + std::to_string(state.tick);
+      std::string ticksCounter = "Ticks " + std::to_string(u_state.tick);
 
       if (ImGui::Button(ticksCounter.c_str())){
-         state.requestTick = true;
-         state.tick +=1;
+         u_state.requestTick = true;
+         u_state.tick +=1;
       }
    };
-} 
+
