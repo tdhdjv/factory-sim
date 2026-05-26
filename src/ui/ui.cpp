@@ -65,7 +65,6 @@ namespace FactoryUI {
          ImGuiWindowFlags_NoMove       |
          ImGuiWindowFlags_NoBringToFrontOnFocus
       );
-
       
       Topbar topbar(state);
       StatsRow statsrow(s);

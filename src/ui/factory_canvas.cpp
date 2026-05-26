@@ -2,7 +2,6 @@
 #include "ui/ui_colors.h"
 #include <imgui.h>
 
-
    static void draw_machine(const UI::MachineDisplayData& machine, bool selected){
       if(selected){
          ImGui::PushStyleColor( ImGuiCol_Button, UI::Colors::PRODUCT_DOT);
@@ -14,7 +13,6 @@
       ImGui::Text("Queue: %llu/%llu", machine.queueSize, machine.queueCapacity);
       ImGui::ProgressBar( machine.progress, ImVec2(200, 20));
    }
-
 
    void FactoryCanvas:: draw()
    {

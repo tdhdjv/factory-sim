@@ -20,6 +20,13 @@ void Topbar::draw(){
       ImGui::SetNextItemWidth(150.f);
       u_state.simulationSpeed = 1;
       ImGui::SliderInt("Speed", &u_state.simulationSpeed, 1, 5, "%dx");
+      ImGui::SameLine(1200.f, 0.f);
+      
+      const char* items[] = {"Normal flow", "BreakDown"};
+      static int current_item = 0;
+
+      ImGui::SetNextItemWidth(170.f);
+      ImGui::Combo("Scenarios", &current_item, items, IM_ARRAYSIZE(items));
       ImGui::SameLine(1600.0f, 0.0f);
 
       std::string ticksCounter = "Ticks " + std::to_string(u_state.tick);
