@@ -78,7 +78,7 @@ namespace FactoryUI {
       statsrow.draw();
       ImGui::Spacing();
       factorycanvas.draw();
-      ImGui::Spacing();
+      ImGui::SameLine();
       inspector.draw();
       ImGui::Spacing();
       logpanel.draw();

@@ -14,12 +14,13 @@ void Topbar::draw(){
       ImGui::SameLine();
       if(ImGui::Button("Reset")){
          u_state.requestReset = true;
+         u_state.tick = 0;
       };
       ImGui::SameLine();
       ImGui::SetNextItemWidth(150.f);
       u_state.simulationSpeed = 1;
       ImGui::SliderInt("Speed", &u_state.simulationSpeed, 1, 5, "%dx");
-      ImGui::SameLine(1700.0f, 0.0f);
+      ImGui::SameLine(1600.0f, 0.0f);
 
       std::string ticksCounter = "Ticks " + std::to_string(u_state.tick);
 
