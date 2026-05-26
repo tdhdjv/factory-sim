@@ -52,7 +52,7 @@ namespace LongDay {
             return queue.size() < capacity;
         }
 
-        void print_status() override {
+        virtual void print_status() override {
             std::queue<In> copy = queue;
 			std::cout << "(" << this->get_name() << ") [";
             while (!copy.empty()) {

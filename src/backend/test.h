@@ -21,7 +21,7 @@ namespace LongDay {
     public:
         i32 transform(const i32& input) override; 
 		const char* get_name() const override;
-        explicit SquareMachine(i32 capacity, i32 ticksToProduce): Machine(capacity, ticksToProduce) {}
+        explicit SquareMachine(i32 capacity, i32 ticksToProduce): Machine(capacity, ticksToProduce, 0.5f) {}
     };
 
     class DoubleMachine: public Machine<i32, i32> {
@@ -29,7 +29,7 @@ namespace LongDay {
 
         i32 transform(const i32& input) override;
 		const char* get_name() const override;
-        explicit DoubleMachine(i32 capacity, i32 ticksToProduce): Machine(capacity, ticksToProduce) {}
+        explicit DoubleMachine(i32 capacity, i32 ticksToProduce): Machine(capacity, ticksToProduce, 0.2f) {}
     };
 
     class PrintI32Sink: public Sink<i32> {

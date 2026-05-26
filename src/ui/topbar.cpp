@@ -23,7 +23,6 @@ namespace Topbar {
       if (ImGui::Button("Ticks")){
          state.requestTick = true;
          state.tick +=1;
-      };
-   }
-
+      }
+   };
 } 
