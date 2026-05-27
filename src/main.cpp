@@ -21,9 +21,9 @@ int main(int, char**) {
 	//vectors for the UI
 	LongDayFactoryState state;
 	std::vector<UI::MachineDisplayData>  machines;
-   std::vector<UI::ConveyorDisplayData> conveyors;
-   UI::FactoryStats                     stats;
-   std::vector<UI::LogEntry>            logs;
+    std::vector<UI::ConveyorDisplayData> conveyors;
+    UI::FactoryStats                     stats;
+    std::vector<UI::LogEntry>            logs;
 
 	while(window.is_running()) {
 		window.update();
