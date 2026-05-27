@@ -9,12 +9,13 @@ namespace LongDay{
          LongDay::LongDayFactory u_factory;
          LongDay::PrintI32Sink u_sink;
 
-         const std::vector<UI::MachineDisplayData> u_machines;
-         const std::vector<UI::ConveyorDisplayData> u_conveyors;
-         const UI::FactoryStats u_stats;
-         const std::vector<UI::LogEntry> u_logs;
+         std::vector<UI::MachineDisplayData> u_machines;
+         std::vector<UI::ConveyorDisplayData> u_conveyors;
+         UI::FactoryStats u_stats;
+         std::vector<UI::LogEntry> u_logs;
 
-         void synkDisplaydata();//reads backend and fills the u_machines etc.
+         void synkDisplaydata(int tick);//reads backend and fills the u_machines etc.
+
 
          public:
          FactoryController();
