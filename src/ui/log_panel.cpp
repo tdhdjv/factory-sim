@@ -21,7 +21,9 @@ void LogPanel::draw(){
       ImGui::BeginChild("Factory Log Entries", ImVec2(0,0), true);
       ImGui::Text("Factory Log Entries");
       ImGui::SameLine(1650.f, 0.f);
-      ImGui::Button("Clear Log");
+      if (ImGui::Button("Clear Log")){
+         u_state.clearLog = true;
+      };
       
       for(const auto& log : u_logs){
          ImGui::TextColored(color_for_status(log.status), "[%u] %s", log.tick, log.message.c_str());

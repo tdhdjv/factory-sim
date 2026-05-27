@@ -40,7 +40,6 @@ namespace {
 } 
 
 
-
 namespace FactoryUI {
 
    void draw(
@@ -70,7 +69,7 @@ namespace FactoryUI {
       StatsRow statsrow(s);
       FactoryCanvas factorycanvas(m, c, state.selectedStage, {1355, 300} );
       Inspector inspector(m, state.selectedStage, {320, 300});
-      LogPanel logpanel(lg, {-1.f, 130.f});
+      LogPanel logpanel(lg, state, {-1.f, 130.f});
 
       topbar.draw();
       ImGui::Spacing();
