@@ -36,6 +36,9 @@ void LongDay::FactoryController::update(LongDayFactoryState& state){
       state.clearLog = false;
    };
 
-   synkDisplaydata(state.tick);
+   syncDisplaydata(state.tick);
 };
 
+void LongDay::FactoryController::syncDisplaydata(int tick) {
+
+}
