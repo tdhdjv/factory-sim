@@ -24,6 +24,5 @@ namespace LongDay{
          const std::vector<UI::ConveyorDisplayData>& getConveyors()    const  {return u_conveyors;};
          const UI::FactoryStats getStats() const {return u_stats;};
          const std::vector<UI::LogEntry>& getLogs()  const{return u_logs;};
-
       };
 }

@@ -1,4 +1,3 @@
-#pragma once
 #include "ui/controller.h"
 #include "ui/ui_state.h"
 
