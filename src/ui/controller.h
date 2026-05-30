@@ -2,10 +2,12 @@
 #include "ui/ui_state.h"
 #include "ui/ui_data.h"
 #include "backend/test.h"
+#include "core/logger.h"
 
 namespace LongDay{
    class FactoryController{
          private:
+         LongDay::Logger u_logger;
          LongDay::LongDayFactory u_factory;
          LongDay::PrintI32Sink u_sink;
 
@@ -15,7 +17,7 @@ namespace LongDay{
          std::vector<UI::LogEntry> u_logs;
 
          void synkDisplaydata(int tick);//reads backend and fills the u_machines etc.
-
+         void pushLog(LongDay::LogLevel level, const std::string& msg, int tick);
 
          public:
          FactoryController();
