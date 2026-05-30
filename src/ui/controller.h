@@ -14,7 +14,7 @@ namespace LongDay{
          UI::FactoryStats u_stats;
          std::vector<UI::LogEntry> u_logs;
 
-         void synkDisplaydata(int tick);//reads backend and fills the u_machines etc.
+         void syncDisplaydata(int tick);//reads backend and fills the u_machines etc.
 
 
          public:
