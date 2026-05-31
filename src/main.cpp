@@ -2,7 +2,7 @@
 
 #include "ui/ui.h"
 #include "backend/scene.h"
-#include "backend/long_day_factory/long_day_factory.h"
+#include "long_day_factory/long_day_factory.h"
 #include <memory>
 
 int main(int, char**) {

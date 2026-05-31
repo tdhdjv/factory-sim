@@ -1,7 +1,7 @@
 #include "long_day_factory.h"
 #include "backend/conveyor.h"
-#include "backend/long_day_factory/day.h"
-#include "backend/long_day_factory/gloom_and_doom.h"
+#include "long_day_factory/day.h"
+#include "long_day_factory/gloom_and_doom.h"
 #include <memory>
 
 namespace LongDay {
