@@ -53,15 +53,5 @@ namespace LongDay {
 		b8 is_broken() {
 			return broken;
 		}
-
-        void print_status() override {
-            std::queue<In> copy = this->queue;
-			std::cout << "(" << this->get_name() << ": " << (broken ? "broken": "working")<< ") [";
-            while (!copy.empty()) {
-                std::cout << copy.front() << ", ";
-                copy.pop();
-            }
-            std::cout << "]";
-        }
-    };
+	};
 }

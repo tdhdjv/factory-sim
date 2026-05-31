@@ -12,7 +12,6 @@ namespace LongDay {
 		virtual void connect(StageBase* next) = 0;
 		virtual void tick() = 0;
 		virtual const char* get_name() const = 0;
-		virtual void print_status() = 0;
     };
 
     template <class In, class Out>
@@ -52,15 +51,6 @@ namespace LongDay {
             return queue.size() < capacity;
         }
 
-        virtual void print_status() override {
-            std::queue<In> copy = queue;
-			std::cout << "(" << this->get_name() << ") [";
-            while (!copy.empty()) {
-                std::cout << copy.front() << ", ";
-                copy.pop();
-            }
-            std::cout << "]";
-        }
 	};
 }
 
