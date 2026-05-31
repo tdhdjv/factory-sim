@@ -1,6 +1,6 @@
 #include "core/window.h"
 
-#include "ui/factory_ui.h"
+#include "ui/ui_manager.h"
 #include "backend/scene.h"
 #include "long_day_factory/long_day_factory.h"
 #include <memory>
@@ -24,13 +24,13 @@ int main(int, char**) {
 	}
 
 	//vectors for the UI
-	LongDayFactoryState state;
-	std::vector<UI::MachineDisplayData>  machines;
-   std::vector<UI::ConveyorDisplayData> conveyors;
-   UI::FactoryStats                     stats;
-   std::vector<UI::LogEntry>            logs;
+	LongDay::FactoryState state;
+	std::vector<LongDay::MachineDisplayData>  machines;
+   std::vector<LongDay::ConveyorDisplayData> conveyors;
+   LongDay::FactoryStats                     stats;
+   std::vector<LongDay::LogEntry>            logs;
 
-	FactoryUI ui;
+	LongDay::UIManager ui;
 
 
 	while(window.is_running()) {
