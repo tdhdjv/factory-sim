@@ -3,8 +3,9 @@
 #include "ui/ui_state.h"
 #include <vector>
 
-namespace FactoryUI {
+class FactoryUI {
 
+   public:
    void draw(
       LongDayFactoryState& state,
       const std::vector<UI::MachineDisplayData>& machines,
@@ -13,7 +14,7 @@ namespace FactoryUI {
       const std::vector<UI::LogEntry>& logs
    );
 
-}
+};
 
 
 

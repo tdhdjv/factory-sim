@@ -20,6 +20,7 @@
 
    void Inspector::draw(){
       ImGui::BeginChild("Inspector", {400, 300}, true);
+      
       if(u_selectedMachine < 0 || u_selectedMachine >= (int)u_machines.size()){
          ImGui::Text("Inspector Window :)\n No machine selected.");
          ImGui::EndChild();

@@ -40,5 +40,5 @@ void LongDay::FactoryController::update(LongDayFactoryState& state){
 };
 
 void LongDay::FactoryController::syncDisplaydata(int tick) {
-
+   
 }

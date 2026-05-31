@@ -40,15 +40,13 @@ namespace {
 } 
 
 
-namespace FactoryUI {
-
-   void draw(
+   void FactoryUI::draw(
       LongDayFactoryState&                        state,
       const std::vector<UI::MachineDisplayData>&  machines,
       const std::vector<UI::ConveyorDisplayData>& conveyors,
       const UI::FactoryStats&                     stats,
-      const std::vector<UI::LogEntry>&            logs
-   ){
+      const std::vector<UI::LogEntry>&            logs)
+      {
       
       const auto& m  = machines.empty()  ? makeMockMachines()   : machines;
       const auto& c  = conveyors.empty() ? makeMockConveyors()  : conveyors;
@@ -84,4 +82,3 @@ namespace FactoryUI {
       ImGui::End();
    }
 
-} 
