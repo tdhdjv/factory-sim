@@ -62,5 +62,10 @@ namespace LongDay{
 			if(!backStage) return false;
 			return backStage->feed();
 		}
+
+		const std::vector<std::unique_ptr<StageBase>>& get_stages() const {
+    		return stages;
+		}
+
 	};
 }

@@ -12,6 +12,7 @@ namespace LongDay {
       if(ImGui::Button("Pause")){
          u_state.paused = true;
       };
+
       ImGui::SameLine();
       if(ImGui::Button("Reset")){
          u_state.requestReset = true;

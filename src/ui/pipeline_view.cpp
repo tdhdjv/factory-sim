@@ -17,7 +17,7 @@ namespace LongDay{
       ImGui::ProgressBar( machine.progress, ImVec2(200, 20));
    }
 
-   void PipelineView:: draw()
+   void PipelineView::draw()
    {
       ImGui::BeginChild("Factory Pipeline", u_size, true);
 
@@ -37,11 +37,15 @@ namespace LongDay{
                u_selectedMachine = (i32)i;
             }
 
-            if(i < u_machines.size() - 1){
+            if (i < u_conveyors.size()) {
                ImGui::SameLine();
-               ImGui::Text("->");
+               ImGui::BeginGroup();
+               ImGui::Text("==[%llu/%llu]==>", u_conveyors[i].itemCount, u_conveyors[i].capacity);
+               ImGui::ProgressBar(u_conveyors[i].fillPercent, ImVec2(80, 8));
+               ImGui::EndGroup();
                ImGui::SameLine();
             }
+
       }
 
       ImGui::SameLine();

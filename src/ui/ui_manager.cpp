@@ -3,17 +3,14 @@
 
 namespace LongDay {
    
-   // All panels are initialized here in the initializer list
-   // This is required because they store references internally —
-   // references must be bound at construction, you can't assign them later
    UIManager::UIManager(FactoryController& controller, FactoryState& state)
    :  u_controller (controller), 
       u_state(state), 
       u_topbar(state),
-      u_stats      (controller.getStats()),
-      u_pipeline   (controller.getMachines(), controller.getConveyors(), state.selectedStage, {1355, 300}),
-      u_inspector  (controller.getMachines(), state.selectedStage, {320, 300}),
-      u_logPanel   (controller.getLogs(), state, {-1.f, 130.f}) {}
+      u_stats (controller.getStats()),
+      u_pipeline (controller.getMachines(), controller.getConveyors(), state.selectedStage, {1355, 300}),
+      u_inspector (controller.getMachines(), state.selectedStage, {320, 300}),
+      u_logPanel  (controller.getLogs(), state, {-1.f, 130.f}) {}
 
    void UIManager::draw() {
 

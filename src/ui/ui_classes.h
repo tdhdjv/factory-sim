@@ -43,7 +43,7 @@ namespace LongDay{
       PipelineView(const std::vector<MachineDisplayData>& machines,
       const std::vector<ConveyorDisplayData>& conveyors,
       i32& selectedMachine, ImVec2 size): u_machines(machines), u_conveyors(conveyors), u_selectedMachine(selectedMachine), u_size(size) {};
-      
+      //void static draw_machine(const MachineDisplayData& machines, bool selected);
       void draw() override;
    };
 
