@@ -3,7 +3,7 @@
 #include <vector>
 #include <define.h>
 
-namespace UI {
+namespace LongDay {
 
    enum struct MachineState {
       IDLE,
@@ -12,19 +12,12 @@ namespace UI {
       MAINTENANCE
    };
 
-   // [Machine] 
-   // [State] -> WORKING
-   // [Health] -> 100%
-   // [Progress] -> 25%
-   // [Queue] ->  4/5
-   // [Output] -> 4
-   // [Process Time] -> 4 ticks
    struct MachineDisplayData {
       std::string id;    
       std::string label;  
       MachineState state; 
-      float health;  
-      float progress;
+      f32 health;  
+      f32 progress;
       u64 queueSize;
       u64 queueCapacity;
       u64 outputCount;
@@ -60,4 +53,22 @@ namespace UI {
       u32 breakDowns = 0;
       u32 lost = 0;
    };
+
+   struct FactoryState {
+   bool running = false;
+   bool paused = false;
+
+   bool requestStart = false;
+   bool requestReset = false;
+   bool forceBreak = false;
+   bool instantRepair = false;
+
+   bool requestTick = false;
+   int tick = 0;
+   int selectedStage = -1;
+   int simulationSpeed = 1;
+
+   bool clearLog = false;
+   };
+
 };

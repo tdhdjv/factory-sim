@@ -1,12 +1,10 @@
 #pragma once
 #include<iostream>
 
-
 namespace LongDay {
-   class UI_view {
+   class UIView {
       public:
-      virtual ~UI_view() = default;
+      virtual ~UIView() = default;
       virtual void draw() = 0;
    };
-
 };

@@ -1,7 +1,8 @@
 #pragma once
 #include <imgui.h>
 
-namespace UI::Colors {
+namespace LongDay{
+    namespace Colors {
 
    // Text / neutral
     constexpr ImVec4 DIM       = { 0.47f, 0.51f, 0.58f, 1.f }; 
@@ -28,4 +29,5 @@ namespace UI::Colors {
     // Background for ImGui child window
     constexpr ImVec4 BG_PRIMARY   = { 0.09f, 0.11f, 0.14f, 1.f };
 
+    }
 }

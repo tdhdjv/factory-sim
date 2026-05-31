@@ -1,10 +1,13 @@
-#include "ui/factory_canvas.h"
+#include "ui/ui_classes.h"
 #include "ui/ui_colors.h"
 #include <imgui.h>
 
-   static void draw_machine(const UI::MachineDisplayData& machine, bool selected){
+
+namespace LongDay{
+
+   static void draw_machine(const MachineDisplayData& machine, bool selected){
       if(selected){
-         ImGui::PushStyleColor( ImGuiCol_Button, UI::Colors::PRODUCT_DOT);
+         ImGui::PushStyleColor( ImGuiCol_Button, Colors::PRODUCT_DOT);
       }
       ImGui::Button(machine.label.c_str(), ImVec2(200, 100));
       if(selected){
@@ -14,7 +17,7 @@
       ImGui::ProgressBar( machine.progress, ImVec2(200, 20));
    }
 
-   void FactoryCanvas:: draw()
+   void PipelineView:: draw()
    {
       ImGui::BeginChild("Factory Pipeline", u_size, true);
 
@@ -27,11 +30,11 @@
 
       for(size_t i = 0; i < u_machines.size(); ++i){
             ImGui::BeginGroup();
-            draw_machine(u_machines[i], u_selectedMachine == (int)i);
+            draw_machine(u_machines[i], u_selectedMachine == (i32)i);
             ImGui::EndGroup();
 
             if(ImGui::IsItemClicked()){
-               u_selectedMachine = (int)i;
+               u_selectedMachine = (i32)i;
             }
 
             if(i < u_machines.size() - 1){
@@ -50,5 +53,5 @@
       ImGui::SameLine();
 
       ImGui::EndChild();
-   }
-
+   };
+};

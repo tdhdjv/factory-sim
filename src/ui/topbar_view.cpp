@@ -1,8 +1,9 @@
-#include "ui/topbar.h"
+#include "ui/ui_classes.h"
 #include <imgui.h>
 #include<iostream>
 
-void Topbar::draw(){
+namespace LongDay {
+   void TopbarView::draw(){
 
       if(ImGui::Button("Start")){
          u_state.requestStart = true;
@@ -36,4 +37,4 @@ void Topbar::draw(){
          u_state.tick +=1;
       }
    };
-
+}
