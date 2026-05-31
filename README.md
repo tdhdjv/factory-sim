@@ -5,10 +5,10 @@
 Long day factory is a reference to a meme called "Long Day Factory".\
 The meme is about a fictional place that produces "Long Days".\
 There are several reasons why we choose this fictional factory to simulate, instead of conventional factories.\
-1. Choosing a fictional factory simulation, give uniqueness and character, compared to a boring conventional factory.
-2. A fictional factory simulation, forces us to make a general interface for any factory, as it is non specific. This means that the code is built with extendenbility in mind.
-3. A fictional factory allows us creative liberty, allowing us to come up with machines, and component that might be in a **Long Day Factory**.
-4. It provides comedic value
+1. **Uniqueness** — Choosing a fictional factory simulation, give uniqueness and character, compared to a boring conventional factory.
+2. **Extendibility** — A fictional factory simulation, forces us to make a general interface for any factory, as it is non specific. This means that the code is built with extendibility in mind.
+3. **Creativity** — A fictional factory allows us creative liberty, allowing us to come up with machines, and component that might be in a **Long Day Factory**.
+4. **Comedy** — It provides comedic value
 
 ## Setup
 ### Installation
