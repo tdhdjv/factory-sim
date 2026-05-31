@@ -1,5 +1,4 @@
 #include "core/window.h"
-
 #include "ui/ui_manager.h"
 #include "backend/scene.h"
 #include "long_day_factory/long_day_factory.h"
@@ -23,14 +22,11 @@ int main(int, char**) {
 		scene.tick();
 	}
 
-	//vectors for the UI
+	
 	LongDay::FactoryState state;
-	std::vector<LongDay::MachineDisplayData>  machines;
-   std::vector<LongDay::ConveyorDisplayData> conveyors;
-   LongDay::FactoryStats                     stats;
-   std::vector<LongDay::LogEntry>            logs;
+	LongDay::FactoryController controller;
 
-	LongDay::UIManager ui(state, machines, conveyors, stats, logs); 
+	LongDay::UIManager ui(controller, state); 
 
 
 	while(window.is_running()) {
