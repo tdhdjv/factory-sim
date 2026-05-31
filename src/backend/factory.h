@@ -35,12 +35,6 @@ namespace LongDay{
 			return *this;
 		}
 
-		void print() {
-			for(auto& stage: stages) {
-				stage->print_status();
-			}
-		}
-
 		void tick() override {
 			sync_consumer();
 			for(u32 i = 0; i < stages.size(); i++) {
@@ -67,22 +61,6 @@ namespace LongDay{
 			Source<Out>* backStage = dynamic_cast<Source<Out>*>(stages.back().get());
 			if(!backStage) return false;
 			return backStage->feed();
-		}
-
-		void print_status() override {
-			std::cout << "(" << this->get_name() << ") [";
-			for(auto& stage: stages) {
-				if(stage) {
-					stage->print_status();
-					std::cout << " -> ";
-				}
-			}
-			std::cout << "]";
-			std::cout << std::endl;
-		}
-
-		const std::vector<std::unique_ptr<StageBase>>& get_stages() const {
-			return stages;
 		}
 	};
 }

@@ -4,11 +4,12 @@
 
 
 LongDay::FactoryController::FactoryController(){
-   u_factory.set_consumer(&u_sink);
+  // u_factory.set_consumer(&u_sink);
 };
 
 void LongDay::FactoryController::update(LongDayFactoryState& state){
 
+	/*
    if(state.requestStart){
       for(u32 i = 0; i<10; i++) u_factory.feed();
       state.requestStart = false;
@@ -37,6 +38,7 @@ void LongDay::FactoryController::update(LongDayFactoryState& state){
    };
 
    syncDisplaydata(state.tick);
+	 */
 };
 
 void LongDay::FactoryController::syncDisplaydata(int tick) {

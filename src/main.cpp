@@ -1,21 +1,26 @@
-#include "backend/test.h"
 #include "core/window.h"
 
 #include "ui/ui.h"
-
+#include "backend/scene.h"
+#include "backend/long_day_factory/long_day_factory.h"
+#include <memory>
 
 int main(int, char**) {
 
 	LongDay::Window window(1200, 800, "Long Day Factory Simulation");
+	
+	auto source = std::make_unique<LongDay::HopeAndDreamsSource>();
+	auto factory = std::make_unique<LongDay::LongDayFactory>();
+	auto sink = std::make_unique<LongDay::PrintDaySink>();
 
-	LongDay::LongDayFactory longDayFactory;
-	LongDay::PrintI32Sink printSink;
-	longDayFactory.set_consumer(&printSink);
-	for(u32 i = 0 ; i < 10; i++) {
-		longDayFactory.feed();
-		longDayFactory.tick();
-		longDayFactory.consume(10);
-		longDayFactory.print_status();
+	LongDay::Scene<LongDay::HopeAndDreams, LongDay::Day> scene(
+		std::move(source),
+		std::move(factory),
+		std::move(sink)
+	);
+
+	for(u32 i = 0; i < 100; i++) {
+		scene.tick();
 	}
 
 	//vectors for the UI
