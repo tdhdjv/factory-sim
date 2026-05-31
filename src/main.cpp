@@ -1,7 +1,7 @@
 #include "backend/test.h"
 #include "core/window.h"
 
-#include "ui/ui.h"
+#include "ui/factory_ui.h"
 
 
 int main(int, char**) {
