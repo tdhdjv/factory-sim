@@ -3,7 +3,6 @@
 #include "ui/ui_data.h"
 #include "ui/ui_view.h"
 
-
 namespace LongDay{
 
    class TopbarView : public UIView {

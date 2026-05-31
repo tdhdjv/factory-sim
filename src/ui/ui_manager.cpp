@@ -37,10 +37,10 @@ namespace LongDay{
 
 namespace LongDay {
    void UIManager::draw() {
-      const auto& m  = machines.empty()  ? makeMockMachines()   : machines;
-      const auto& c  = conveyors.empty() ? makeMockConveyors()  : conveyors;
-      const auto& s  = machines.empty()  ? makeMockStats()      : stats;
-      const auto& lg = logs.empty()      ? makeMockLogs()       : logs;
+      const auto& m  = u_machines.empty()  ? makeMockMachines()   : u_machines;
+      const auto& c  = u_conveyors.empty() ? makeMockConveyors()  : u_conveyors;
+      const auto& s  = u_machines.empty()  ? makeMockStats()      : u_stats;
+      const auto& lg = u_logs.empty()      ? makeMockLogs()       : u_logs;
 
       // a window container, contains everything within one frame
       ImGuiIO& io = ImGui::GetIO();
@@ -52,11 +52,11 @@ namespace LongDay {
          ImGuiWindowFlags_NoBringToFrontOnFocus
       );
       
-      TopbarView topbarView(state);
+      TopbarView topbarView(u_state);
       StatsView statsView(s);
-      PipelineView pipelineView(m, c, state.selectedStage, {1355, 300} );
-      InspectorView inspectorView(m, state.selectedStage, {320, 300});
-      LogPanelView logpanelView(lg, state, {-1.f, 130.f});
+      PipelineView pipelineView(m, c, u_state.selectedStage, {1355, 300} );
+      InspectorView inspectorView(m, u_state.selectedStage, {320, 300});
+      LogPanelView logpanelView(lg, u_state, {-1.f, 130.f});
 
       topbarView.draw();
       ImGui::Spacing();
@@ -67,7 +67,6 @@ namespace LongDay {
       inspectorView.draw();
       ImGui::Spacing();
       logpanelView.draw();
-      
 
       // for(auto ui: views) {
       //    ui->draw();

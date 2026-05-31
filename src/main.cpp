@@ -30,13 +30,13 @@ int main(int, char**) {
    LongDay::FactoryStats                     stats;
    std::vector<LongDay::LogEntry>            logs;
 
-	LongDay::UIManager ui;
+	LongDay::UIManager ui(state, machines, conveyors, stats, logs); 
 
 
 	while(window.is_running()) {
 		window.update();
 		//UI Here!
-		ui.draw(state, machines, conveyors, stats, logs);
+		ui.draw();
 		//
 		window.render();
 	}
