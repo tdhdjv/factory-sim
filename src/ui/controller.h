@@ -1,20 +1,21 @@
 #pragma once
 #include "ui/ui_state.h"
 #include "ui/ui_data.h"
-#include "backend/test.h"
+//#include "backend/test.h"
 
 namespace LongDay{
    class FactoryController{
          private:
-         LongDay::LongDayFactory u_factory;
-         LongDay::PrintI32Sink u_sink;
+//         LongDay::LongDayFactory u_factory;
+//         LongDay::PrintI32Sink u_sink;
 
-         const std::vector<UI::MachineDisplayData> u_machines;
-         const std::vector<UI::ConveyorDisplayData> u_conveyors;
-         const UI::FactoryStats u_stats;
-         const std::vector<UI::LogEntry> u_logs;
+         std::vector<UI::MachineDisplayData> u_machines;
+         std::vector<UI::ConveyorDisplayData> u_conveyors;
+         UI::FactoryStats u_stats;
+         std::vector<UI::LogEntry> u_logs;
 
-         void synkDisplaydata();//reads backend and fills the u_machines etc.
+         void syncDisplaydata(int tick);//reads backend and fills the u_machines etc.
+
 
          public:
          FactoryController();
