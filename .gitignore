@@ -1,4 +1,5 @@
 bin/
 obj/
 .cache/
+.imgui.ini
 compile_commands.json
