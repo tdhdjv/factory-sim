@@ -51,5 +51,14 @@ for Make in windows
 - glfw (Use package manager to install, ex: ```sudo dnf install glfw-devel```)
 
 ## Quick Start
+### Creating Your Own Factory
+``` cpp
+namespace LongDay {
+  /*Change class name to your own*/
+  class MyFactory: public Factory<> {
+  }
+}
+```
 
 ## API Reference
+See [API.md](API.md) for detail
