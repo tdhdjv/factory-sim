@@ -5,7 +5,7 @@
 
 namespace LongDay {
 
-   enum struct MachineState {
+   enum MachineState {
       IDLE,
       WORKING,
       BROKEN,
@@ -30,10 +30,10 @@ namespace LongDay {
       std::string label; 
       u64 itemCount;
       u64 capacity;
-      float fillPercent;
+      f32 fillPercent;
    };
 
-   enum struct LogStatus {
+   enum LogStatus {
       INFO,
       WARN,
       DANGER,
@@ -55,20 +55,20 @@ namespace LongDay {
    };
 
    struct FactoryState {
-   bool running = false;
-   bool paused = false;
+		 b8 running = false;
+		 b8 paused = false;
 
-   bool requestStart = false;
-   bool requestReset = false;
-   bool forceBreak = false;
-   bool instantRepair = false;
+		 b8 requestStart = false;
+		 b8 requestReset = false;
+		 b8 forceBreak = false;
+		 b8 instantRepair = false;
 
-   bool requestTick = false;
-   int tick = 0;
-   int selectedStage = -1;
-   int simulationSpeed = 1;
+		 b8 requestTick = false;
+		 i32 tick = 0;
+		 i32 selectedStage = -1;
+		 i32 simulationSpeed = 1;
 
-   bool clearLog = false;
+		 b8 clearLog = false;
    };
 
 };
