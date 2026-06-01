@@ -18,7 +18,7 @@ namespace LongDay{
 
          public:
          FactoryController();
-         void update(FactoryState& state);
+         void update(UIState& state);
 
          const std::vector<MachineDisplayData>& getMachines()  const {return u_machines;};
          const std::vector<ConveyorDisplayData>& getConveyors()    const  {return u_conveyors;};

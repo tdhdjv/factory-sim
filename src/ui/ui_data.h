@@ -54,15 +54,13 @@ namespace LongDay {
       u32 lost = 0;
    };
 
-   struct FactoryState {
+   struct UIState {
 		 b8 running = false;
 		 b8 paused = false;
-
 		 b8 requestStart = false;
 		 b8 requestReset = false;
 		 b8 forceBreak = false;
 		 b8 instantRepair = false;
-
 		 b8 requestTick = false;
 		 i32 tick = 0;
 		 i32 selectedStage = -1;

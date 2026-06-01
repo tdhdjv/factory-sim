@@ -1,14 +1,14 @@
 #pragma once
 #include "ui/ui_view.h"
 #include "ui/ui_classes.h"
-#include "ui/controller.h"
+#include "ui/factory_controller.h"
 
 namespace LongDay {
 
    class UIManager : public UIView {
    private:
       FactoryController& u_controller;
-      FactoryState&      u_state;
+      UIState&      u_state;
 
       TopbarView    u_topbar;
       StatsView     u_stats;
@@ -17,7 +17,7 @@ namespace LongDay {
       LogPanelView  u_logPanel;
 
    public:
-      UIManager(FactoryController& controller, FactoryState& state);
+      UIManager(FactoryController& controller, UIState& state);
       void draw() override;
    };
 
