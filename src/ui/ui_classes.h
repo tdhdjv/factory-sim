@@ -7,9 +7,9 @@ namespace LongDay{
 
    class TopbarView : public UIView {
       private:
-      FactoryState& u_state;
+      UIState& u_state;
       public:
-      TopbarView(FactoryState& state): u_state(state){};
+      TopbarView(UIState& state): u_state(state){};
       void draw() override;
    };
 
@@ -50,10 +50,10 @@ namespace LongDay{
    class LogPanelView : public UIView {
       private:
       const std::vector<LogEntry>& u_logs;
-      FactoryState& u_state;
+      UIState& u_state;
       ImVec2 u_size;
       public:
-      LogPanelView(const std::vector<LogEntry>& logs, FactoryState& state, ImVec2 size): u_logs(logs), u_state(state), u_size(size){};
+      LogPanelView(const std::vector<LogEntry>& logs, UIState& state, ImVec2 size): u_logs(logs), u_state(state), u_size(size){};
       void draw () override;
    };
 

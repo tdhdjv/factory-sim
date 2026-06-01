@@ -1,4 +1,4 @@
-#include "ui/controller.h"
+#include "ui/factory_controller.h"
 #include "ui/ui_data.h"
 #include <iostream>
 
@@ -7,7 +7,7 @@ namespace LongDay{
    // u_factory.set_consumer(&u_sink);
    };
 
-   void FactoryController::update(FactoryState& state){
+   void FactoryController::update(UIState& state){
 
       /*
       if(state.requestStart){

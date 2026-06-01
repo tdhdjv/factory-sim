@@ -4,7 +4,7 @@
 #include <imgui.h>
 
 namespace LongDay{
-   
+
     static const char* state_to_string(MachineState state){
           switch(state){
              case MachineState::IDLE:
@@ -23,7 +23,7 @@ namespace LongDay{
       void InspectorView::draw(){
          ImGui::BeginChild("Inspector", {400, 300}, true);
          
-         if(u_selectedMachine < 0 || u_selectedMachine >= (int)u_machines.size()){
+         if(u_selectedMachine < 0 || u_selectedMachine >= (i32)u_machines.size()){
             ImGui::Text("Inspector Window :)\n No machine selected.");
             ImGui::EndChild();
             return;

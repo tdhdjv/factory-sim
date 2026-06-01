@@ -30,7 +30,7 @@ namespace LongDay {
       std::string label; 
       u64 itemCount;
       u64 capacity;
-      float fillPercent;
+      f32 fillPercent;
    };
 
    enum struct LogStatus {
@@ -54,7 +54,7 @@ namespace LongDay {
       u32 lost = 0;
    };
 
-   struct FactoryState {
+   struct UIState {
    bool running = false;
    bool paused = false;
 
@@ -64,9 +64,10 @@ namespace LongDay {
    bool instantRepair = false;
 
    bool requestTick = false;
-   int tick = 0;
-   int selectedStage = -1;
-   int simulationSpeed = 1;
+
+   i32 tick = 0;
+   i32 selectedStage = -1;
+   i32 simulationSpeed = 1;
 
    bool clearLog = false;
    };

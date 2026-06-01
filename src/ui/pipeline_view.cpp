@@ -28,13 +28,13 @@ namespace LongDay{
       ImGui::Text("->");
       ImGui::SameLine();
 
-      for(size_t i = 0; i < u_machines.size(); ++i){
+      for(i32 i = 0; i < u_machines.size(); ++i){
             ImGui::BeginGroup();
-            draw_machine(u_machines[i], u_selectedMachine == (i32)i);
+            draw_machine(u_machines[i], u_selectedMachine == i);
             ImGui::EndGroup();
 
             if(ImGui::IsItemClicked()){
-               u_selectedMachine = (i32)i;
+               u_selectedMachine = i;
             }
 
             if (i < u_conveyors.size()) {

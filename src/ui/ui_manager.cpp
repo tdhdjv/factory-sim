@@ -3,7 +3,7 @@
 
 namespace LongDay {
    
-   UIManager::UIManager(FactoryController& controller, FactoryState& state)
+   UIManager::UIManager(FactoryController& controller, UIState& state)
    :  u_controller (controller), 
       u_state(state), 
       u_topbar(state),
