@@ -40,7 +40,7 @@ namespace LongDay{
             if (i < u_conveyors.size()) {
                ImGui::SameLine();
                ImGui::BeginGroup();
-               ImGui::Text("==[%llu/%llu]==>", u_conveyors[i].itemCount, u_conveyors[i].capacity);
+               ImGui::Text("  conveyor\n==[%llu/%llu]==>", u_conveyors[i].itemCount, u_conveyors[i].capacity);
                ImGui::ProgressBar(u_conveyors[i].fillPercent, ImVec2(80, 8));
                ImGui::EndGroup();
                ImGui::SameLine();
