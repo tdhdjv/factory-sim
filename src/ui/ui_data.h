@@ -5,6 +5,11 @@
 
 namespace LongDay {
 
+   enum Scenario {
+      NORMAL_FLOW,
+      BREAKDOWN
+   };
+
    enum MachineState {
       IDLE,
       WORKING,
@@ -65,7 +70,7 @@ namespace LongDay {
 		 i32 tick = 0;
 		 i32 selectedStage = -1;
 		 i32 simulationSpeed = 1;
-
+       Scenario scenario = NORMAL_FLOW;
 		 b8 clearLog = false;
    };
 

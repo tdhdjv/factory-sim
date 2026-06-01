@@ -28,7 +28,9 @@ namespace LongDay {
       static int current_item = 0;
 
       ImGui::SetNextItemWidth(170.f);
-      ImGui::Combo("Scenarios", &current_item, items, IM_ARRAYSIZE(items));
+      if(ImGui::Combo("Scenarios", &current_item, items, IM_ARRAYSIZE(items))){
+         u_state.scenario = (current_item == 0) ? NORMAL_FLOW : BREAKDOWN;
+      };
       ImGui::SameLine(1600.0f, 0.0f);
 
       std::string ticksCounter = "Ticks " + std::to_string(u_state.tick);
