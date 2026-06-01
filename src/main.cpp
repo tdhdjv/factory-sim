@@ -23,7 +23,7 @@ int main(int, char**) {
 	}
 
 	
-	LongDay::FactoryState state;
+	LongDay::UIState state;
 	LongDay::FactoryController controller;
 
 	LongDay::UIManager ui(controller, state); 
