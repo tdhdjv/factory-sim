@@ -1,31 +1,22 @@
 #pragma once
 #include "ui/ui_view.h"
 #include "ui/ui_classes.h"
-#include "ui/factory_controller.h"
+#include "ui/scene_view.h"
+#include "backend/scene.h"
+#include "long_day_factory/hope_and_dreams.h"
+#include "long_day_factory/day.h"
 
 namespace LongDay {
 
    class UIManager : public UIView {
    private:
-      FactoryController& u_controller;
-      UIState&      u_state;
-
-      TopbarView    u_topbar;
-      StatsView     u_stats;
-      PipelineView  u_pipeline;
-      InspectorView u_inspector;
-      LogPanelView  u_logPanel;
+      UIState& u_state;
+      TopbarView u_topbar;
+      SceneView  u_sceneView;
 
    public:
-      UIManager(FactoryController& controller, UIState& state);
+      UIManager(Scene<HopeAndDreams, Day>& scene, UIState& state);
       void draw() override;
    };
 
 }
-
-// std::vector<std::unique_ptr<UIView>> views;
-// void add_ui_view(std::unique_ptr<UIView> view);
- 
-
-
-

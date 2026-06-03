@@ -10,9 +10,9 @@ int main(int, char**) {
 
 	LongDay::Window window(1200, 800, "Long Day Factory Simulation");
 	
-	auto source = std::make_unique<LongDay::HopeAndDreamsSource>();
+	auto source  = std::make_unique<LongDay::HopeAndDreamsSource>();
 	auto factory = std::make_unique<LongDay::LongDayFactory>();
-	auto sink = std::make_unique<LongDay::PrintDaySink>();
+	auto sink    = std::make_unique<LongDay::PrintDaySink>();
 
 	LongDay::Scene<LongDay::HopeAndDreams, LongDay::Day> scene(
 		std::move(source),
@@ -20,23 +20,12 @@ int main(int, char**) {
 		std::move(sink)
 	);
 
-	for(u32 i = 0; i < 100; i++) {
-		scene.tick();
-	}
-
-	
 	LongDay::UIState state;
-	LongDay::FactoryController controller;
-
-	LongDay::UIManager ui(controller, state); 
-
+	LongDay::UIManager ui(scene, state);
 
 	while(window.is_running()) {
 		window.update();
-		//UI Here!
 		ui.draw();
-		//
 		window.render();
 	}
 }
-

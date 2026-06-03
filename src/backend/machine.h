@@ -1,57 +1,63 @@
 #pragma once
 #include "backend/utils.h"
 #include "backend/stage.h"
+#include "backend/machine_base.h"
 
 namespace LongDay {
     template<typename In, typename Out>
-    class Machine: public AtomicStage<In, Out> {
+    class Machine: public AtomicStage<In, Out>, public MachineBase {
     private:
         u32 progress;
         u32 ticksForProduction;
-		f32 failureProbability;
-		b8 broken;
+        b8 broken;
+        u64 outputCount;
     protected:
         virtual Out transform(const In& input) = 0;
     public:
-		explicit Machine(u32 capacity, u32 ticksForProduction, f32 failProbability)
-			: AtomicStage<In, Out>(capacity),
-			  progress(0),
-			  ticksForProduction(ticksForProduction),
-			  broken(false),
-			  failureProbability(failProbability) {};
+        explicit Machine(u32 capacity, u32 ticksForProduction, f32 failProbability)
+            : AtomicStage<In, Out>(capacity),
+              progress(0),
+              ticksForProduction(ticksForProduction),
+              broken(false),
+              outputCount(0) {
+            originalFailureProbability = failProbability;
+            activeFailureProbability   = failProbability;
+        };
+
         void tick() override {
             if(this->queue.empty()) return; 
 
-			if(randomFloat() <= failureProbability) {
-				broken = true;
-			}
-			if(!broken) {
-				progress++;
-				if(progress >= ticksForProduction) {
-						feed();
-						progress = 0;
-				}
-			}
+            if(randomFloat() <= activeFailureProbability) {
+                broken = true;
+            }
+            if(!broken) {
+                progress++;
+                if(progress >= ticksForProduction) {
+                    feed();
+                    progress = 0;
+                }
+            }
         }
 
         b8 feed() override {
-			if(this->queue.empty())
-				return false;
+            if(this->queue.empty())
+                return false;
             this->consumer->consume(transform(this->queue.front()));
-			this->queue.pop();
+            this->queue.pop();
+            outputCount++;
             return true;
         }
 
-		void fix() {
-			broken = false;
-		}
+        void fix() override {
+            broken = false;
+        }
 
-		f32 get_failure_probability() {
-			return failureProbability;
-		}
+        b8 is_broken() override {
+            return broken;
+        }
 
-		b8 is_broken() {
-			return broken;
-		}
-	};
+        u32 get_progress() const override { return progress; }
+        u32 get_ticks_for_production() const override { return ticksForProduction; }
+        u64 get_output_count() const override { return outputCount; }
+    };
 }
