@@ -27,7 +27,7 @@ namespace LongDay {
         void tick() override {
             if(this->queue.empty()) return; 
 
-            if(randomFloat() <= activeFailureProbability) {
+            if(!broken && randomFloat() <= activeFailureProbability) {
                 broken = true;
             }
             if(!broken) {
@@ -50,6 +50,16 @@ namespace LongDay {
 
         void fix() override {
             broken = false;
+        }
+
+        void reset() override {
+            progress = 0;
+            broken = false;
+            outputCount = 0;
+
+            while(!this->queue.empty()) this->queue.pop();
+            activeFailureProbability = originalFailureProbability;
+
         }
 
         b8 is_broken() override {

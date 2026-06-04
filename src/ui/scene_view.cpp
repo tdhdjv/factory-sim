@@ -2,6 +2,7 @@
 #include "backend/machine_base.h"
 #include "backend/conveyor.h"
 #include <imgui.h>
+#include<map>
 
 namespace LongDay {
 
@@ -49,7 +50,7 @@ namespace LongDay {
             u_state.requestStart = false;
         }
 
-        // Advance ticks
+        // Ticks
         if (u_state.running || u_state.requestTick) {
             u32 steps = u_state.running ? (u32)u_state.simulationSpeed : 1u;
             for (u32 i = 0; i < steps; i++) {
@@ -60,7 +61,7 @@ namespace LongDay {
             if (!u_state.running) u_state.requestTick = false;
         }
 
-        // Pause just flips the running flag
+        // Pause 
         if (u_state.paused) {
             u_state.running = false;
             u_state.paused  = false;
@@ -73,9 +74,8 @@ namespace LongDay {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // syncDisplayData  — read live backend state → fill display buffers
-    // -------------------------------------------------------------------------
+   
+    // syncDisplayData fills display buffers
     void SceneView::syncDisplayData() {
         auto* factory = u_scene.get_factory();
         const auto& stages = factory->get_stages();
@@ -99,13 +99,7 @@ namespace LongDay {
                 if (m->is_broken()) {
                     mdd.state = MachineState::BROKEN;
                 } else {
-                    // Cast to AtomicStageBase to get queue info
-                    // We use a small helper: try casting to AtomicStage<?,?> via
-                    // a non-template base we add to AtomicStage.
-                    // For now we get size/capacity via MachineBase helpers
-                    // (we'll try a dynamic_cast trick below).
-                    mdd.state = MachineState::IDLE; // default; override below
-                }
+                    mdd.state = MachineState::IDLE; }
 
                 // Queue info — we need to cast to an AtomicStage to read queue
                 // We use the AtomicStageAccessor interface (see stage.h additions)
@@ -129,21 +123,56 @@ namespace LongDay {
                 mdd.health      = m->is_broken() ? 0.f : 100.f;
                 mdd.outputCount = m->get_output_count();
 
-                // Log new breakdowns
-                if (m->is_broken() && mdd.state == MachineState::BROKEN) {
-                    // Only log once per breakdown — check last log
-                    bool alreadyLogged = false;
-                    if (!u_logs.empty()) {
-                        const auto& last = u_logs.back();
-                        alreadyLogged = (last.message.find(mdd.label) != std::string::npos
-                                         && last.status == LogStatus::DANGER);
-                    }
-                    if (!alreadyLogged) {
+
+    // Track previous machine state so we can detect transitions
+    // We use a persistent map keyed by machine id
+                static std::map<std::string, u64> prevOutputCount;
+                static std::map<std::string, bool> prevBroken;
+
+                bool wasBroken = prevBroken.count(mdd.id) ? prevBroken[mdd.id] : false;
+
+                // Log new breakdowns (transition: not broken → broken)
+                if (m->is_broken() && !wasBroken) {
+                    u_logs.push_back({ u_tick,
+                        mdd.label + " BROKEN!",
+                        LogStatus::DANGER });
+                }
+
+                // Log repair (transition: broken → working)
+                if (!m->is_broken() && wasBroken) {
+                    u_logs.push_back({ u_tick,
+                        mdd.label + " repaired and back online.",
+                        LogStatus::OK });
+                }
+
+                // Log each new output (machine finished processing a product)
+                u64 prevOut = prevOutputCount.count(mdd.id) ? prevOutputCount[mdd.id] : 0;
+                if (mdd.outputCount > prevOut) {
+                    u64 delta = mdd.outputCount - prevOut;
+                    for (u64 d = 0; d < delta; d++) {
                         u_logs.push_back({ u_tick,
-                            mdd.label + " BROKEN!",
-                            LogStatus::DANGER });
+                            mdd.label + " finished processing a product. (output #"
+                            + std::to_string(prevOut + d + 1) + ")",
+                            LogStatus::OK });
                     }
                 }
+
+                // Log when machine actively consumes from its queue
+                if (!m->is_broken() && mdd.queueSize > 0 && mdd.state == MachineState::WORKING) {
+                    static std::map<std::string, u64> prevQueueSize;
+                    u64 prevQ = prevQueueSize.count(mdd.id) ? prevQueueSize[mdd.id] : mdd.queueSize;
+                    if (prevQ > mdd.queueSize) {
+                        // queue shrank → item was consumed
+                        u_logs.push_back({ u_tick,
+                            mdd.label + " consumed an item from queue. (queue: "
+                            + std::to_string(mdd.queueSize) + "/" + std::to_string(mdd.queueCapacity) + ")",
+                            LogStatus::INFO });
+                    }
+                    prevQueueSize[mdd.id] = mdd.queueSize;
+                }
+
+                prevBroken[mdd.id]      = m->is_broken();
+                prevOutputCount[mdd.id] = mdd.outputCount;
 
                 u_machines.push_back(mdd);
                 machineIdx++;
@@ -178,9 +207,7 @@ namespace LongDay {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // draw
-    // -------------------------------------------------------------------------
+    
     void SceneView::draw() {
         applyStateToBackend();
         syncDisplayData();

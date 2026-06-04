@@ -13,6 +13,12 @@ namespace LongDay {
             feed();
         }
 
+        void reset(){
+            while (!this->queue.empty()){
+                this->queue.pop();
+            }
+        }
+
         b8 feed() override {
 			if(this->queue.empty())
 				return false;

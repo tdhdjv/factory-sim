@@ -14,7 +14,7 @@ namespace LongDay{
          ImGui::PopStyleColor();
       }
       ImGui::Text("Queue: %llu/%llu", machine.queueSize, machine.queueCapacity);
-      ImGui::ProgressBar( machine.progress, ImVec2(200, 20));
+      ImGui::ProgressBar( machine.progress, ImVec2(200, 30));
    }
 
    void PipelineView::draw()
@@ -41,7 +41,7 @@ namespace LongDay{
                ImGui::SameLine();
                ImGui::BeginGroup();
                ImGui::Text("  conveyor\n==[%llu/%llu]==>", u_conveyors[i].itemCount, u_conveyors[i].capacity);
-               ImGui::ProgressBar(u_conveyors[i].fillPercent, ImVec2(80, 8));
+               ImGui::ProgressBar(u_conveyors[i].fillPercent, ImVec2(100,20));
                ImGui::EndGroup();
                ImGui::SameLine();
             }
