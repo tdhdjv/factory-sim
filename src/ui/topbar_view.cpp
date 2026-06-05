@@ -24,7 +24,7 @@ namespace LongDay {
       ImGui::SliderInt("Speed", &u_state.simulationSpeed, 1, 5, "%dx");
       ImGui::SameLine(1200.f, 0.f);
       
-      const char* items[] = {"Normal flow", "BreakDown"};
+      const char* items[] = {"Normal flow", "Random Breakdowns"};
       static int current_item = 0;
 
       ImGui::SetNextItemWidth(170.f);

@@ -9,7 +9,7 @@ namespace LongDay{
       if(selected){
          ImGui::PushStyleColor( ImGuiCol_Button, Colors::PRODUCT_DOT);
       }
-      ImGui::Button(machine.label.c_str(), ImVec2(200, 100));
+      ImGui::Button(machine.label.c_str(), ImVec2(255, 100));
       if(selected){
          ImGui::PopStyleColor();
       }
