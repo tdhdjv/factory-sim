@@ -6,31 +6,24 @@
 
 namespace LongDay {
 
-    // -------------------------------------------------------------------------
-    // Constructor — sub-views hold const refs into our buffers, so the buffers
-    // must be constructed before the sub-views.  Member initialiser order in
-    // the class definition already guarantees this because the buffers are
-    // declared first.
-    // -------------------------------------------------------------------------
     SceneView::SceneView(Scene<HopeAndDreams, Day>& scene, UIState& state)
         : u_scene(scene),
           u_state(state),
           u_statsView(u_stats),
           u_pipelineView(u_machines, u_conveyors, state.selectedStage, {1355, 300}),
           u_inspectorView(u_machines, state.selectedStage, {320, 300}),
-          u_logPanelView(u_logs, state, {-1.f, 130.f})
+          u_logPanelView(u_logs, state, {-1.f, 0.f})
     {}
 
-    // -------------------------------------------------------------------------
-    // applyStateToBackend  — translate button/combo events into backend calls
-    // -------------------------------------------------------------------------
+   
+    // applyStateToBackend, translate button/combo events into backend calls
     void SceneView::applyStateToBackend() {
-        // Scenario selector → enable/disable breakdown mode
+        // Scenario selector, enable/disable breakdown mode
         bool wantBreakdowns = (u_state.scenario == BREAKDOWN);
         if (wantBreakdowns != u_scene.is_breakdown_mode()) {
             u_scene.set_breakdown_mode(wantBreakdowns);
             u_logs.push_back({ u_tick,
-                wantBreakdowns ? "Scenario: BREAKDOWN mode enabled"
+                wantBreakdowns ? "Scenario: Random Breakdowns mode enabled"
                                : "Scenario: Normal flow restored",
                 wantBreakdowns ? LogStatus::WARN : LogStatus::OK });
         }
@@ -75,7 +68,7 @@ namespace LongDay {
     }
 
    
-    // syncDisplayData fills display buffers
+    // syncDisplayData reads backend and fills machines
     void SceneView::syncDisplayData() {
         auto* factory = u_scene.get_factory();
         const auto& stages = factory->get_stages();
@@ -89,7 +82,7 @@ namespace LongDay {
         for (const auto& stagePtr : stages) {
             StageBase* base = stagePtr.get();
 
-            // --- Machine ---
+            // Machines
             if (auto* m = dynamic_cast<MachineBase*>(base)) {
                 MachineDisplayData mdd;
                 mdd.id    = std::string("m") + std::to_string(machineIdx);
@@ -102,7 +95,7 @@ namespace LongDay {
                     mdd.state = MachineState::IDLE; }
 
                 // Queue info — we need to cast to an AtomicStage to read queue
-                // We use the AtomicStageAccessor interface (see stage.h additions)
+                // We use the AtomicStageAccessor interface
                 if (auto* atomic = dynamic_cast<AtomicStageAccessor*>(base)) {
                     mdd.queueSize     = atomic->get_size();
                     mdd.queueCapacity = atomic->get_capacity();
@@ -116,16 +109,13 @@ namespace LongDay {
                 u32 ticks = m->get_ticks_for_production();
                 mdd.processTimeTicks = ticks;
                 mdd.progress = (ticks > 0)
-                    ? (float)m->get_progress() / (float)ticks
-                    : 0.f;
-
-                // health: 100% when not broken, 0% when broken (simple model)
+                    ? (f32)m->get_progress() / (f32)ticks : 0.f;
                 mdd.health      = m->is_broken() ? 0.f : 100.f;
                 mdd.outputCount = m->get_output_count();
 
 
-    // Track previous machine state so we can detect transitions
-    // We use a persistent map keyed by machine id
+                // Track previous machine state so we can detect transitions
+                // We use a persistent map keyed by machine id
                 static std::map<std::string, u64> prevOutputCount;
                 static std::map<std::string, bool> prevBroken;
 
@@ -133,26 +123,21 @@ namespace LongDay {
 
                 // Log new breakdowns (transition: not broken → broken)
                 if (m->is_broken() && !wasBroken) {
-                    u_logs.push_back({ u_tick,
-                        mdd.label + " BROKEN!",
-                        LogStatus::DANGER });
+                    u_logs.push_back({ u_tick,  mdd.label + " BROKEN!", LogStatus::DANGER });
                 }
 
                 // Log repair (transition: broken → working)
                 if (!m->is_broken() && wasBroken) {
-                    u_logs.push_back({ u_tick,
-                        mdd.label + " repaired and back online.",
-                        LogStatus::OK });
+                    u_logs.push_back({ u_tick, mdd.label + " repaired and back online.", LogStatus::OK });
                 }
 
                 // Log each new output (machine finished processing a product)
                 u64 prevOut = prevOutputCount.count(mdd.id) ? prevOutputCount[mdd.id] : 0;
                 if (mdd.outputCount > prevOut) {
                     u64 delta = mdd.outputCount - prevOut;
-                    for (u64 d = 0; d < delta; d++) {
-                        u_logs.push_back({ u_tick,
-                            mdd.label + " finished processing a product. (output #"
-                            + std::to_string(prevOut + d + 1) + ")",
+                    for (u64 i = 0; i < delta; i++) {
+                        u_logs.push_back({ u_tick, mdd.label + " finished processing a product. (output #"
+                            + std::to_string(prevOut + i + 1) + ")",
                             LogStatus::OK });
                     }
                 }
@@ -177,7 +162,7 @@ namespace LongDay {
                 u_machines.push_back(mdd);
                 machineIdx++;
             }
-            // --- Conveyor ---
+            // Conveyor 
             else if (auto* atomic = dynamic_cast<AtomicStageAccessor*>(base)) {
                 ConveyorDisplayData cdd;
                 cdd.id          = std::string("c") + std::to_string(conveyorIdx);

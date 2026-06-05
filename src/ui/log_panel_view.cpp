@@ -22,10 +22,10 @@ namespace LongDay{
    void LogPanelView::draw() {
 
       // Outer child: fixed height panel with a header + clear button
-      ImGui::BeginChild("OuterLogPanel", ImVec2(0, u_size.y > 0 ? u_size.y : 160.f), true);
+      ImGui::BeginChild("OuterLogPanel", ImVec2(0, 0), true);
 
       ImGui::Text("Factory Log Entries");
-      ImGui::SameLine(ImGui::GetContentRegionAvail().x - 80.f);
+      ImGui::SameLine(1600.f);
 
       if (ImGui::Button("Clear Log")) {
          u_state.clearLog = true;
