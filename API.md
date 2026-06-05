@@ -37,32 +37,40 @@ A stage with templates, represents a stage in a factory (ex: conveyor, crusher, 
 - StageBase
 - Process<In, Out>
 
+## AtomicStageBase (interface)
+An Atomic Stage without the templates
+### Member Variables
+- **capacity: u64**
+
 ## AtomicStage<In, Out> (interface)
 A stage that cannot be divided into further stages (ex: conveyor, machine)
 ### Inheritance
 - Stage<In, Out>
+- AtomicStageBase
 ### Member Variables
-- queue: std::queue<In>
-- capacity: u64
+- **queue: std::queue<In>**
 
 ## Conveyor<in>
 A stage that transfers objects to another stage, whilst also being able to store the object if transfer cannot be done.
 ### Inheritance
-- Stage<In, Out>
+- AtomicStage<In, Out>
 ### Methods
 - **tick()**: tries to push the data to the next stage, stores if fail.
+
+## MachineBase (interface)
+An interface for the machine without the templates
+### Member Variables
+- **progress: u32**: How much the transformation is done
+- **tickForProduction: u32**: How long a transformation takes
+- **failureProbability: f32**: How likely the machine will breaking per every tick
+- **broken: b8**: Is the machine broken?
 
 ## Machine<In, Out> (abstract)
 A stage that transform one data into another, and transfers it to the next stage.
 The transformation takes a certain amount of time, and the machine has a probability of breaking down.
 ## Inheritance
-- Stage<In, Out>
-### Member variables
-- **progress: u32**: How much the transformation is done
-- **tickForProduction: u32**: How long a transformation takes
-- **failureProbability: f32**: How likely the machine will breaking per every tick
-- **broken: b8**: Is the machine broken?
-### - 
+- AtomicStage<In, Out>
+### Methods
 - **transform(input: In&)**: Transform Input onto output
 - **tick()**: Increases progress, and when progress finished sends transformed data to the next stage
 - **fix()**: Change broken to false
