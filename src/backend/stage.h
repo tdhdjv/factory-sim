@@ -1,18 +1,20 @@
 #pragma once
 
-#include <iostream>
 #include "backend/process.h"
 #include <queue>
+#include <stdexcept>
 
 namespace LongDay {
 
-    // Non-template interface so SceneView can read queue info from any
-    // AtomicStage without knowing its template parameters.
-    class AtomicStageAccessor {
+    class AtomicStageBase {
+	protected:
+        u64 capacity;
     public:
-        virtual ~AtomicStageAccessor() = default;
+		AtomicStageBase(u64 capacity)
+			:capacity(capacity) {};
+        virtual ~AtomicStageBase() = default;
+        u64 get_capacity() const { return capacity;};
         virtual u64 get_size()     const = 0;
-        virtual u64 get_capacity() const = 0;
         virtual float get_fill()   const = 0;
     };
 
@@ -30,26 +32,22 @@ namespace LongDay {
         void connect(StageBase* next) override {
             Sink<Out>* sink = dynamic_cast<Sink<Out>*>(next);
             if(!sink) {
-                //TODO: Error for wrong type of connect
+				throw std::invalid_argument("The type of next is is invalid!!!");
                 return;
             }
             this->set_consumer(sink);
         }
     };
 
-    // An AtomicStage is a Stage that isn't composed out of other stages.
-    // It also inherits AtomicStageAccessor so SceneView can query queue info.
     template <class In, class Out>
-    class AtomicStage: public Stage<In, Out>, public AtomicStageAccessor {
+    class AtomicStage: public Stage<In, Out>, public AtomicStageBase {
     protected:
         std::queue<In> queue;
-        u64 capacity;
     public:
         explicit AtomicStage(u64 capacity):
-            capacity(capacity) {}
+            AtomicStageBase(capacity) {}
 
         u64 get_size()     const override { return queue.size(); }
-        u64 get_capacity() const override { return capacity; }
         float get_fill()   const override {
             return (float)queue.size() / (float)capacity;
         }

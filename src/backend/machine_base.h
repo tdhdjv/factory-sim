@@ -2,23 +2,28 @@
 #include "define.h"
 
 namespace LongDay {
-    // Non-template base so Scene (and SceneView) can interact with machines
-    // without knowing their In/Out types.
     class MachineBase {
     protected:
-        f32 originalFailureProbability; // set once at construction
-        f32 activeFailureProbability;   // what's actually used at runtime
-    public:
+        u32 progress;
+        u64 outputCount;
+        b8 broken;
+        u32 ticksForProduction;
+        f32 failureProbability; 
+	public:
+		MachineBase(u32 ticksForProduction, f32 failureProbability)
+		: progress(0),
+		outputCount(0),
+		broken(false),
+		ticksForProduction(ticksForProduction),
+		failureProbability(failureProbability) {};
         virtual ~MachineBase() = default;
 
-        virtual void fix() = 0;
-        virtual b8 is_broken() = 0;
-        virtual u32 get_progress() const = 0;
-        virtual u32 get_ticks_for_production() const = 0;
-        virtual u64 get_output_count() const = 0;
+        void fix() { broken = false; };
+        b8 is_broken() { return broken;};
+        u32 get_progress() const { return progress; };
+        u32 get_ticks_for_production() const { return ticksForProduction; };
+        u64 get_output_count() const { return outputCount; };
 
-        f32 get_failure_probability() const { return originalFailureProbability; }
-        f32 get_active_failure_probability() const { return activeFailureProbability; }
-        void set_active_failure_probability(f32 p) { activeFailureProbability = p; }
+        f32 get_failure_probability() const { return failureProbability; }
     };
 }

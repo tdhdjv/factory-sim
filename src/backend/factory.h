@@ -13,7 +13,7 @@ namespace LongDay{
 			if(!consumerSycned) {
 				Source<Out>* back = dynamic_cast<Source<Out>*>(stages.back().get());
 				if(!back) {
-					//TODO: Error the back stage doesn't output Out Type
+					throw std::invalid_argument("The back of the stage does not match the type of the factory!!!");
 					return;
 				}
 				back->set_consumer(this->consumer);

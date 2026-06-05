@@ -6,7 +6,7 @@
 namespace LongDay {
 	class HopeAndDreamsCrusher: public Machine<HopeAndDreams, GloomAndDoom> {
 	public:
-		explicit HopeAndDreamsCrusher();
+		explicit HopeAndDreamsCrusher(f32 breakDownProbability);
 		const char* get_name() const override; 
 		GloomAndDoom transform(const HopeAndDreams& hopeAndDreams) override;
 	};

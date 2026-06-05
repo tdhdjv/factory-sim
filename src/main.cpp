@@ -3,25 +3,35 @@
 #include "backend/scene.h"
 #include "long_day_factory/long_day_factory.h"
 #include "long_day_factory/hope_and_dream_source.h"
-#include "long_day_factory/print_day_sink.h"
+#include "long_day_factory/day_sink.h"
 #include <memory>
 
 int main(int, char**) {
 
 	LongDay::Window window(1200, 800, "Long Day Factory Simulation");
 	
-	auto source  = std::make_unique<LongDay::HopeAndDreamsSource>();
-	auto factory = std::make_unique<LongDay::LongDayFactory>();
-	auto sink    = std::make_unique<LongDay::PrintDaySink>();
+	auto normalSource  = std::make_unique<LongDay::HopeAndDreamsSource>();
+	auto normalFactory = std::make_unique<LongDay::LongDayFactory>(0);
+	auto normalSink    = std::make_unique<LongDay::DaySink>();
 
-	LongDay::Scene<LongDay::HopeAndDreams, LongDay::Day> scene(
-		std::move(source),
-		std::move(factory),
-		std::move(sink)
+	auto breakDownSource  = std::make_unique<LongDay::HopeAndDreamsSource>();
+	auto breakDownFactory = std::make_unique<LongDay::LongDayFactory>(0.1f);
+	auto breakDownSink    = std::make_unique<LongDay::DaySink>();
+
+	LongDay::Scene<LongDay::HopeAndDreams, LongDay::Day> normalScene(
+		std::move(normalSource),
+		std::move(normalFactory),
+		std::move(normalSink)
+	);
+
+	LongDay::Scene<LongDay::HopeAndDreams, LongDay::Day> breakDownScene(
+		std::move(breakDownSource),
+		std::move(breakDownFactory),
+		std::move(breakDownSink)
 	);
 
 	LongDay::UIState state;
-	LongDay::UIManager ui(scene, state);
+	LongDay::UIManager ui(normalScene, state);
 
 	while(window.is_running()) {
 		window.update();

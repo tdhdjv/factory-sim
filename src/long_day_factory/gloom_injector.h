@@ -6,7 +6,7 @@
 namespace LongDay{
 	class GloomInjector: public Machine<GloomAndDoom, Day> {
 	public:
-		explicit GloomInjector();
+		explicit GloomInjector(f32 breakDownProbability);
 		const char* get_name() const override; 
 		Day transform(const GloomAndDoom& gloomAndDoom) override;
 	};

@@ -20,6 +20,7 @@ namespace LongDay {
     void SceneView::applyStateToBackend() {
         // Scenario selector, enable/disable breakdown mode
         bool wantBreakdowns = (u_state.scenario == BREAKDOWN);
+		/*
         if (wantBreakdowns != u_scene.is_breakdown_mode()) {
             u_scene.set_breakdown_mode(wantBreakdowns);
             u_logs.push_back({ u_tick,
@@ -27,6 +28,7 @@ namespace LongDay {
                                : "Scenario: Normal flow restored",
                 wantBreakdowns ? LogStatus::WARN : LogStatus::OK });
         }
+		*/
 
         // Reset clears everything
         if (u_state.requestReset) {
@@ -96,7 +98,7 @@ namespace LongDay {
 
                 // Queue info — we need to cast to an AtomicStage to read queue
                 // We use the AtomicStageAccessor interface
-                if (auto* atomic = dynamic_cast<AtomicStageAccessor*>(base)) {
+                if (auto* atomic = dynamic_cast<AtomicStageBase*>(base)) {
                     mdd.queueSize     = atomic->get_size();
                     mdd.queueCapacity = atomic->get_capacity();
                     if (!m->is_broken() && mdd.queueSize > 0)
@@ -136,9 +138,11 @@ namespace LongDay {
                 if (mdd.outputCount > prevOut) {
                     u64 delta = mdd.outputCount - prevOut;
                     for (u64 i = 0; i < delta; i++) {
+						/*
                         u_logs.push_back({ u_tick, mdd.label + " finished processing a product. (output #"
                             + std::to_string(prevOut + i + 1) + ")",
                             LogStatus::OK });
+						*/
                     }
                 }
 
@@ -163,7 +167,7 @@ namespace LongDay {
                 machineIdx++;
             }
             // Conveyor 
-            else if (auto* atomic = dynamic_cast<AtomicStageAccessor*>(base)) {
+            else if (auto* atomic = dynamic_cast<AtomicStageBase*>(base)) {
                 ConveyorDisplayData cdd;
                 cdd.id          = std::string("c") + std::to_string(conveyorIdx);
                 cdd.label       = base->get_name();

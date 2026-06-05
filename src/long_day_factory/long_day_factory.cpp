@@ -8,12 +8,12 @@
 #include <memory>
 
 namespace LongDay {
-	LongDayFactory::LongDayFactory() {
-		append(std::make_unique<HopeAndDreamsCrusher>())
+	LongDayFactory::LongDayFactory(f32 machineBreakDownProbability) {
+		append(std::make_unique<HopeAndDreamsCrusher>(machineBreakDownProbability))
 		.append(std::make_unique<Conveyor<GloomAndDoom>>(2))
-		.append(std::make_unique<GloomInjector>())
+		.append(std::make_unique<GloomInjector>(machineBreakDownProbability))
 		.append(std::make_unique<Conveyor<Day>>(3))
-		.append(std::make_unique<DayTimeDilator>());
+		.append(std::make_unique<DayTimeDilator>(machineBreakDownProbability));
 	}
 
 	const char* LongDayFactory::get_name() const {

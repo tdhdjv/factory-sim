@@ -1,7 +1,11 @@
 CC := g++
 CONFIG ?= debug
 ASSEMBLY := longDayFactory
-COMPILER_FLAGS := -g -O0 
+ifeq ($(CONFIG), debug)
+	COMPILER_FLAGS := -g -O0 
+else
+	COMPILER_FLAGS := -O3 
+endif
 
 BUILD_DIR := bin
 OBJ_DIR := obj

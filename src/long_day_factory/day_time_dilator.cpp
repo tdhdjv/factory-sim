@@ -1,7 +1,7 @@
 #include "day_time_dilator.h"
 
 namespace LongDay {
-	DayTimeDilator::DayTimeDilator(): Machine<Day, Day>(20, 5, 0.02f) {};
+	DayTimeDilator::DayTimeDilator(f32 breakDownProbability): Machine<Day, Day>(20, 5, breakDownProbability) {};
 	const char* DayTimeDilator::get_name() const {
 		return "Day Time Dilator";
 	}

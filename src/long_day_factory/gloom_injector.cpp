@@ -1,7 +1,7 @@
 #include "gloom_injector.h"
 
 namespace LongDay {
-	GloomInjector::GloomInjector() :Machine<GloomAndDoom, Day>(5, 1, 0.02f) {}
+	GloomInjector::GloomInjector(f32 breakDownProbability) :Machine<GloomAndDoom, Day>(5, 1, breakDownProbability) {}
 
 	const char* GloomInjector::get_name() const {
 		return "Gloom Injector";

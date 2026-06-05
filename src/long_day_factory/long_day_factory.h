@@ -6,7 +6,7 @@
 namespace LongDay {
 	class LongDayFactory: public Factory<HopeAndDreams, Day> {
 	public:
-		LongDayFactory();
+		LongDayFactory(f32 machineBreakDownProbability);
 		const char* get_name() const override;
 	};
 }
