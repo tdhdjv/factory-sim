@@ -2,6 +2,8 @@
 #include "backend/utils.h"
 #include "backend/stage.h"
 #include "backend/machine_base.h"
+#include "core/logger.h"
+#include <iostream>
 
 namespace LongDay {
     template<typename In, typename Out>
@@ -18,6 +20,7 @@ namespace LongDay {
 
             if(!broken && randomFloat() <= failureProbability) {
                 broken = true;
+				Logger::log(LogStatus::WARN, "%s Broke!!!", this->get_name());
             }
             if(!broken) {
                 progress++;
@@ -36,5 +39,27 @@ namespace LongDay {
             outputCount++;
             return true;
         }
+
+		void fix() override {
+			broken = false; 
+			Logger::log(LogStatus::INFO, "%s has been Fixed!", this->get_name());
+		}
+
+		void break_machine() override {
+			broken = true;
+			Logger::log(LogStatus::WARN, "%s has been forcablity broken!!!", this->get_name());
+		}
+
+		std::string get_str() const override  {
+			return this->get_name();
+		}
+
+		u64 get_queue_cap() const override {
+			return this->capacity;
+		}
+
+		u64 get_queue_fill() const override {
+			return this->queue.size();
+		}
     };
 }

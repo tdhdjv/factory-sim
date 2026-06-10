@@ -1,13 +1,12 @@
 #pragma once
-#include "backend/stage.h"
-#include <memory>
+#include "backend/factory_base.h"
+#include "core/logger.h"
 
 namespace LongDay{
 	template<class In, class Out>
-	class Factory: public Stage<In, Out> {
+	class Factory: public Stage<In, Out>, public FactoryBase {
 	private:
 		b8 consumerSycned = false;
-		std::vector<std::unique_ptr<StageBase>> stages;
 	public:
 		void sync_consumer() {
 			if(!consumerSycned) {
@@ -66,6 +65,5 @@ namespace LongDay{
 		const std::vector<std::unique_ptr<StageBase>>& get_stages() const {
     		return stages;
 		}
-
 	};
 }

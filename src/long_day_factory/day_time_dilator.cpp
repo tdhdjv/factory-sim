@@ -1,4 +1,5 @@
 #include "day_time_dilator.h"
+#include <iostream>
 
 namespace LongDay {
 	DayTimeDilator::DayTimeDilator(f32 breakDownProbability): Machine<Day, Day>(20, 5, breakDownProbability) {};
@@ -11,4 +12,5 @@ namespace LongDay {
 		result.hoursInADay *= 100;
 		return result;
 	}
+
 }

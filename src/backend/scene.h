@@ -2,7 +2,6 @@
 #include "backend/factory.h"
 #include "backend/sink.h"
 #include "backend/source.h"
-#include "backend/machine.h"
 
 namespace LongDay {
 	template<class In, class Out>
@@ -20,7 +19,6 @@ namespace LongDay {
 		}
 
 		void tick() {
-			factory->feed();
 			factory->tick();
 			source->feed();
 		}

@@ -61,7 +61,7 @@ link-win32: scaffold $(OBJ_FILES)
 .PHONY: link-linux
 link-linux: scaffold $(OBJ_FILES)
 	@echo Linking...
-	@$(CC) $(OBJ_FILES) -o$(BUILD_DIR)/$(CONFIG)/$(ASSEMBLY) $(LINKER_FLAGS)
+	@$(CC) $(OBJ_FILES) -o$(BUILD_DIR)/$(CONFIG)/$(ASSEMBLY) $(LINKER_FLAGS) -fsanitize=address
 
 .PHONY: compile
 compile: #compile .c files

@@ -14,8 +14,7 @@ namespace LongDay {
 			:capacity(capacity) {};
         virtual ~AtomicStageBase() = default;
         u64 get_capacity() const { return capacity;};
-        virtual u64 get_size()     const = 0;
-        virtual float get_fill()   const = 0;
+        virtual u64 get_fill()   const = 0;
     };
 
     class StageBase {
@@ -47,9 +46,8 @@ namespace LongDay {
         explicit AtomicStage(u64 capacity):
             AtomicStageBase(capacity) {}
 
-        u64 get_size()     const override { return queue.size(); }
-        float get_fill()   const override {
-            return (float)queue.size() / (float)capacity;
+        u64 get_fill() const override {
+            return queue.size();
         }
 
         b8 consume(const In& product) override {
@@ -61,5 +59,7 @@ namespace LongDay {
         b8 can_consume() override {
             return queue.size() < capacity;
         }
+
+		
     };
 }
