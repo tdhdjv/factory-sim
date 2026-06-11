@@ -1,4 +1,8 @@
 # API Documentation
+# UI
+## UML Diagram
+<img width="672" height="386" alt="UI_UML" src="https://github.com/user-attachments/assets/fdf8090f-cafd-455c-bd52-4ce6299a0351" />
+
 # Backend
 A representation of a factory pipeline, modeling factories, machines, conveyor, etc...
 ## UML Diagram
