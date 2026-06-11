@@ -13,7 +13,7 @@ namespace LongDay {
 		std::vector<Scene<In, Out>> sceneOptions;
 		Scene<In,Out>* currentScene;
 		UIState(std::vector<Scene<In, Out>>&& sceneOptions)
-			:running(true), paused(false), tickCount(0), sceneOptions(std::move(sceneOptions)) {
+			:running(true), paused(true), tickCount(0), sceneOptions(std::move(sceneOptions)) {
 				currentScene = &this->sceneOptions[0];
 			}
 	};
