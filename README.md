@@ -51,14 +51,107 @@ for Make in windows
 - glfw (Use package manager to install, ex: ```sudo dnf install glfw-devel```)
 
 ## Quick Start
+### Creating Your Own Machine
+``` cpp
+namespace LongDay {
+  /*Change class name to your own*/
+  /*Change In, Out type to your own types*/
+  class MyMachine: public Machine<In, Out>
+   :Machine<In, Out>(capacity, tickForProduction, breakDownProbability) {}
+
+  Out transform(const In& in) {
+    Out out;
+    /*Logic to transform in to out*/
+    ...
+    return out;
+  }
+
+  const char* get_name() const override {
+    return "my machine";
+  }
+}
+```
+### Creating Your Own Conveyor
+``` cpp
+Conveyor<Type> conveyor(capacity);
+```
+
 ### Creating Your Own Factory
 ``` cpp
 namespace LongDay {
   /*Change class name to your own*/
-  class MyFactory: public Factory<> {
+  /*Change In, Out type to your own types*/
+  class MyFactory: public Factory<In, Out> {
+    append(std::make_unique<Machine/Conyevor>(...))
+    .append(std::make_unique<Machine/Conyevor>(...))
+    .append(std::make_unique<Machine/Conyevor>(...))
+    .append(std::make_unique<Machine/Conyevor>(...))
+    .append(std::make_unique<Machine/Conyevor>(...))
+    .append(std::make_unique<Machine/Conyevor>(...));
+  }
+
+  const char* get_name() const override {
+    return "my factory";
   }
 }
 ```
+### Example
+#### Machine
+``` cpp
+namespace LongDay {
+	class DoubleMachine: public Machine<i32, i32> {
+	public:
+		explicit DoubleMachine(u64 capacity, u64 ticksForProduction, f32 breakDownProbability)
+      :Machine<i32, i32>(capacity, tickForProduction, breakDownProbability) {}
 
+		i32 transform(const i32& num) override {
+      i32 result;
+      result = num*2;
+      return result;
+    }
+
+		const char* get_name() const override {
+      return "double machine"
+    }
+	};
+}
+
+```
+``` cpp
+namespace LongDay {
+	class SquareMachine: public Machine<i32, i32> {
+	public:
+		explicit Squareachine(f32 breakDownProbability)
+      :Machine<i32, i32>(10, 3, breakDownProbability) {}
+
+		i32 transform(const i32& num) override {
+      i32 result;
+      result = num*num;
+      return result;
+    }
+
+		const char* get_name() const override {
+      return "square machine"
+    }
+	};
+}
+```
+#### Factory
+``` cpp
+namespace LongDay {
+  /*Change class name to your own*/
+  /*Change In, Out type to your own types*/
+  class NumberFactory: public Factory<In, Out> {
+    append(std::make_unique<Conveyor<i32>>(3))
+    .append(std::make_unique<DoubleMachine>(5, 10, 0.01f))
+    .append(std::make_unique<Conveyor<i32>>(5))
+    .append(std::make_unique<SquareMachine>(0.0025f));
+  }
+
+  const char* get_name() const override {
+    return "number factory";
+  }
+}
+```
 ## API Reference
 See [API.md](API.md) for detail
