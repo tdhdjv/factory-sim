@@ -2,7 +2,7 @@
 # Backend
 A representation of a factory pipeline, modeling factories, machines, conveyor, etc...
 ## UML Diagram
-<img width="512" height="429" alt="uml" src="https://github.com/user-attachments/assets/625e483e-684b-4172-9a9e-34c991bb7f25"/>
+<img width="1141" height="726" alt="Untitled Diagram drawio" src="https://github.com/user-attachments/assets/60c1d6e8-fe43-44cc-8d8c-a3ae92e2ff7a" />
 
 ## Sink<T> (interface)
 Consumes an object, and does something with object
