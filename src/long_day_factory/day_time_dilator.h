@@ -1,7 +1,6 @@
 #pragma once
 #include "backend/machine.h"
 #include "day.h"
-#include <iostream>
 
 namespace LongDay {
 	class DayTimeDilator: public Machine<Day, Day> {
