@@ -1,6 +1,7 @@
 # API Documentation
 # UI
 ## UML Diagram
+<img width="672" height="386" alt="UI_UML" src="C:\Users\user\Pictures\Screenshots\Screenshot 2026-06-12 223422.png" />
 <img width="672" height="386" alt="UI_UML" src="https://github.com/user-attachments/assets/fdf8090f-cafd-455c-bd52-4ce6299a0351" />
 
 # Backend
