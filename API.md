@@ -1,12 +1,14 @@
 # API Documentation
 # UI
 ## UML Diagram
-<img width="672" height="386" alt="UI_UML" src="https://github.com/user-attachments/assets/fdf8090f-cafd-455c-bd52-4ce6299a0351" />
+<img width="711" height="386" alt="UI_UML" src="https://github.com/user-attachments/assets/c07db19e-c293-44ee-9708-d78cc0eebe61" />
+
 
 # Backend
 A representation of a factory pipeline, modeling factories, machines, conveyor, etc...
 ## UML Diagram
-<img width="941" height="789" alt="backend_UML" src="https://github.com/user-attachments/assets/ff9edb4b-57b5-4ef4-8ef6-e60df179d0b1" />
+<img width="941" height="789" alt="uml" src="https://github.com/user-attachments/assets/a0965203-c906-40e1-bf16-eb5f9b33d710" />
+
 
 
 ## Sink<T> (interface)
